@@ -1,6 +1,7 @@
 from flask import Flask as fl
 from flask import request as req
 import requests as res
+from flask import render_template as temp
 import os
 
 app = fl(__name__, static_folder='', static_url_path='')
@@ -27,21 +28,7 @@ dotted#a2a9b6}</style> '''
 def index():
     zhuye = res.get(url + "getBookshelf")
     zhuye = zhuye.json()
-    o = str()
-    if zhuye["isSuccess"]:
-        for i in range(0, len(zhuye['data'])):
-            o = o + '<div onclick="window.location.href=\'/book/?url={bookurl}\';"><div><img ' \
-                    'height="150"src="{cover}">{br}<a class="jz">{name}</a><div ' \
-                    'class="wb"></div></div></div>'.format(cover=zhuye['data'][i]['coverUrl'], name=zhuye['data'][i][
-                'name'], bookurl=zhuye['data'][i][
-                'bookUrl'],br=br)
-            print(o)
-    return style + '''
-    <title>Kindle-Reader-Web-CLI</title>
-    <div><h1 class=jz>书架</h1></div>
-    <div class="wb"></div>
-    <div class=d-div>{书籍}</div>
-    '''.format(书籍=o)
+    return temp("bookshelf.html",zhuye=zhuye)
 
 
 @app.route('/book/')
@@ -58,33 +45,9 @@ def book():
         if i["bookUrl"] == burl:
             book_info = i
 
-    html = style + '''
-    <div class="jz"><img height="150"src="{cover}">
-    {br}
-    <a class="jz">{name}</a>
-    {br}
-    <a class="jz">{author}</a>
-    {br}
-    <a class=jz>最后阅读:{lastread}</a>
-    {br}
-    <a class=jz>最新章节:{latestread}</a>
-    {br}
-    <div class="d-div">
-    {button1}{button2}{button3}
-    </div>
-    {br}{br}{br}
-    <div class="xu-line"></div>
-    {br}
-    <a class="jz">{intro}</a>
-    {br}
-    
- 
-    '''.format(cover=book_info["coverUrl"], name=book_info["name"], author=book_info["author"],
-               intro=str(book_info["intro"]).replace("\n", '<div class="wb"></div>'),
-               lastread=book_info["durChapterTitle"], latestread=book_info["latestChapterTitle"], br=br,
-               button1=button.format(str_="书架", link="/"), button2=button.format(str_="继续阅读", link="#"),
-               button3=button.format(str_="目录", link="#"))
-    return html
+    return temp("bookinfo.html",br=br,cover=book_info["coverUrl"], name=book_info["name"], author=book_info["author"],
+               intro=str(book_info["intro"]),
+               lastread=book_info["durChapterTitle"], latestread=book_info["latestChapterTitle"])
 
 
 if __name__ == "__main__":
