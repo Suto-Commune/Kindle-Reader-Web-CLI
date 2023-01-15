@@ -26,9 +26,9 @@ dotted#a2a9b6}</style> '''
 
 @app.route("/")
 def index():
-    zhuye = res.get(url + "getBookshelf")
-    zhuye = zhuye.json()
-    return temp("bookshelf.html",zhuye=zhuye)
+    main_page = res.get(url + "getBookshelf")
+    main_page = main_page.json()
+    return temp("bookshelf.html", main_page=main_page)
 
 
 @app.route('/book/')
@@ -45,9 +45,9 @@ def book():
         if i["bookUrl"] == burl:
             book_info = i
 
-    return temp("bookinfo.html",br=br,cover=book_info["coverUrl"], name=book_info["name"], author=book_info["author"],
-               intro=str(book_info["intro"]),
-               lastread=book_info["durChapterTitle"], latestread=book_info["latestChapterTitle"])
+    return temp("bookinfo.html", br=br, cover=book_info["coverUrl"], name=book_info["name"], author=book_info["author"],
+                intro=str(book_info["intro"]),
+                lastread=book_info["durChapterTitle"], latestread=book_info["latestChapterTitle"])
 
 
 if __name__ == "__main__":
