@@ -61,7 +61,7 @@
 		<div class="d-div">
 		
 		{%for i in main_page['data']%}
-			<div onclick="window.location.href='/book/?url={{ i['bookUrl'] }}';">
+			<div onclick="window.location.href='/book/{{ i['bookUrl'] }}';">
 				<div>
 					<img height="150" src="{{ i['coverUrl'] }}">
 					<br/>
