@@ -57,15 +57,15 @@
 	<body>
 		<div class="jz">
 			<img height="150" src="{{ cover }}"></img>
-			{{ br }}
+			{{ br | safe }}
 			<a class="jz">{{ name }}</a>
-			{{ br }}
+			{{ br | safe }}
 			<a class="jz">{{ author }}</a>
-			{{ br }}
+			{{ br | safe }}
 			<a class="jz">{{ lastread }}</a>
-			{{ br }}
+			{{ br | safe }}
 			<a class="jz">{{ leastread }}</a>
-			{{ br }}
+			{{ br | safe }}
 			<div class="d-div">
 				<div id="cssbutton">
 					<a id="btlogin" href="http://192.168.1.15:5000/">书架</a>
@@ -77,13 +77,13 @@
 					<a id="btlogin" href="#">目录</a>
 				</div>
 			</div>
-			{{ br }}
-			{{ br }}
-			{{ br }}
+			{{ br | safe }}
+			{{ br | safe }}
+			{{ br | safe }}
 			<div class="xu-line"></div>
-			{{ br }}
-			<a class="jz">{{ intro }}</a>
-			{{ br }}
+			{{ br | safe }}
+			<a class="jz">{{ intro | safe }}</a>
+			{{ br | safe }}
 
 
 		</div>
