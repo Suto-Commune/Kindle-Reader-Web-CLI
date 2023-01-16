@@ -14,7 +14,7 @@ reader_start = threading.Thread(name='启动reader服务端', target=reader_lunc
 import os
 
 # 创建flask对象
-app = fl(__name__, static_folder='', static_url_path='')
+app = fl(__name__, static_folder='storage', static_url_path='')
 
 # 初始化全局变量
 url = "http://127.0.0.1:8080/reader3/"
