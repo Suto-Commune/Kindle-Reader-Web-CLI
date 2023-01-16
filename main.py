@@ -108,7 +108,7 @@ def book_chapter(page, p):
 	book_url = req.full_path.replace("/chapter/{page}/".format(page=page), "")
 	json = {
 		"url": book_url,
-		"refresh": 0
+		"refresh": 1
 	}
 
 	shelf = res.get(url + "getBookshelf").json()["data"]
