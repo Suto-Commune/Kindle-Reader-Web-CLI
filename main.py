@@ -80,7 +80,7 @@ def book_read(index_, save, p):
     # 拼接url
     # index和外部函数重名的,容易出bug,改成index_了
     b_url = req.full_path.replace(f"/read/{save}/{index_}/", "").replace('?', '')
-    # 请求数据
+    # 创建请求数据
     get_content_json = {
         "url": b_url,
         "index": int(index_),
@@ -90,10 +90,14 @@ def book_read(index_, save, p):
         "url": b_url,
         "refresh": 0
     }
-    # 请求
+
+    # 发送请求
     text = res.post(url + "getBookContent", json=get_content_json).json()["data"].replace("\n", br)
     chapter = res.post(url + "getChapterList", json=get_list_json).json()["data"]
+
+    # 获取标题
     chapter_name = chapter[int(index_)]["title"]
+
     if int(save) == 1:
         save_book_json = {
             "url": url,
@@ -101,12 +105,14 @@ def book_read(index_, save, p):
         }
         res.post(url + "saveBookProgress", json=save_book_json)
 
-    if not index_ == '0':
+    # 判断上一章是否存在
+    if index_ != '0':
         last_chapter = f'/read/1/{int(index_) - 1}/{b_url}'
         last_chapter = f'href="{last_chapter}"'
-    elif index_ == '0':
+    else:
         last_chapter = 'onclick="alert(\'没有上一章啦\');"'
 
+    # 判断下一章是否存在
     if index_ != str(len(chapter) - 1):
         next_chapter = f'/read/1/{int(index_) + 1}/{b_url}'
         next_chapter = f'href="{next_chapter}"'
@@ -120,22 +126,25 @@ def book_read(index_, save, p):
 
 @app.route("/chapter/<page>/<path:p>")
 def book_chapter(page, p):
+    # 初始化参数
     page_int = int(page)
     book_url = req.full_path.replace(f"/chapter/{page}/", "")
-    get_list_json = {
-        "url": book_url,
-        "refresh": 1
-    }
 
+    # 取书架
     shelf = res.get(url + "getBookshelf").json()["data"]
     for i in shelf:
         if i["bookUrl"] == book_url:
             book_info_ = i
 
+    # 取章节列表
+    get_list_json = {
+        "url": book_url,
+        "refresh": 1
+    }
     chapter = res.post(url + "getChapterList", json=get_list_json).json()["data"]
-    latest = int()
-    read_chapter = list()
 
+    latest = int()
+    read_chapter = []
     for i in range((page_int - 1) * 20, (page_int - 1) * 20 + 20):
         if i >= len(chapter):
             latest = i
