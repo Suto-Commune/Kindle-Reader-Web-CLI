@@ -12,13 +12,8 @@ import logging
 
 # 创建reader线程
 def reader_thread():
-    try:
-        subprocess.check_output(['java', '-jar', 'reader-pro-2.7.3.jar', '>nul'])
-    except:
-        ...
-    try:
-        subprocess.check_output(['java', '-jar', 'reader-pro-2.7.3.jar'])
-    except:
+    if not subprocess.check_output(['java', '-jar', 'reader-pro-2.7.3.jar', '>nul']) and not subprocess.check_output(
+            ['java', '-jar', 'reader-pro-2.7.3.jar']):
         logging.getLogger(__name__).critical('Unable to load threads:reader')
         sys.exit()
 
@@ -38,7 +33,8 @@ def index():
     main_page = res.get(url + "getBookshelf").json()
     print(main_page)
     for book_info_ in main_page['data']:
-        book_info_["coverUrl"] = book_info_["coverUrl"] if "coverUrl" in book_info_ else '../../../../../assets/img/noCover.jpeg'
+        book_info_["coverUrl"] = book_info_[
+            "coverUrl"] if "coverUrl" in book_info_ else '../../../../../assets/img/noCover.jpeg'
     return temp("bookshelf.html", main_page=main_page)
 
 
@@ -131,7 +127,7 @@ def book_read(index_, save, p):
 def book_chapter(page, p):
     # 初始化参数
     page_int = int(page)
-    book_url = req.full_path.replace(f"/chapter/{page}/", "").replace('?','')
+    book_url = req.full_path.replace(f"/chapter/{page}/", "").replace('?', '')
 
     # 取书架
     shelf = res.get(url + "getBookshelf").json()["data"]
