@@ -12,8 +12,13 @@ import logging
 
 # 创建reader线程
 def reader_thread():
-    if not subprocess.check_output(['java', '-jar', 'reader-pro-2.7.3.jar', '>nul']) and not subprocess.check_output(
-            ['java', '-jar', 'reader-pro-2.7.3.jar']):
+    try:
+        subprocess.check_output(['java', '-jar', 'reader-pro-2.7.3.jar', '>nul'])
+    except:
+        ...
+    try:
+        subprocess.check_output(['java', '-jar', 'reader-pro-2.7.3.jar'])
+    except:
         logging.getLogger(__name__).critical('Unable to load threads:reader')
         sys.exit()
 
@@ -168,7 +173,13 @@ def book_chapter(page, p):
                 lastpage=last_page, nextpage=next_page, link=link)
 
 
+def flask_thread():
+    app.run(host='0.0.0.0', debug=False)
+
+
 if __name__ == "__main__":
     t = threading.Thread(name='reader', target=reader_thread, daemon=True)
+    t_flask = threading.Thread(name='reader', target=flask_thread, daemon=True)
     t.start()
-    app.run(host='0.0.0.0', debug=True)
+    t_flask.start()
+    t.join()
