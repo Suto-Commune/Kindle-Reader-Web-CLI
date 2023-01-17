@@ -36,6 +36,9 @@ button = '<div id="cssbutton"><a id="btlogin" href="{link}">{str_}</a></div>'
 def index():
     global url
     main_page = res.get(url + "getBookshelf").json()
+    print(main_page)
+    for book_info_ in main_page['data']:
+        book_info_["coverUrl"] = book_info_["coverUrl"] if "coverUrl" in book_info_ else '../../../../../assets/img/noCover.jpeg'
     return temp("bookshelf.html", main_page=main_page)
 
 
