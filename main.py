@@ -1,17 +1,27 @@
-from flask import Flask as fl
-from flask import request as req
-import requests as res
-from flask import render_template as temp
+import os
+import subprocess
+import sys
 import threading
 
+import requests as res
+from flask import Flask as fl
+from flask import render_template as temp
+from flask import request as req
+import logging
 
-def reader_luncher():
-	os.system("java -jar reader-pro-2.7.3.jar>nul")
 
+# 创建reader线程
+def reader_thread():
+    try:
+        subprocess.check_output(['java', '-jar', 'reader-pro-2.7.3.jar', '>nul'])
+    except:
+        ...
+    try:
+        subprocess.check_output(['java', '-jar', 'reader-pro-2.7.3.jar'])
+    except:
+        logging.getLogger(__name__).critical('Unable to load threads:reader')
+        sys.exit()
 
-reader_start = threading.Thread(name='启动reader服务端', target=reader_luncher)
-
-import os
 
 # 创建flask对象
 app = fl(__name__, static_folder='storage', static_url_path='')
@@ -24,126 +34,133 @@ button = '<div id="cssbutton"><a id="btlogin" href="{link}">{str_}</a></div>'
 
 @app.route("/")
 def index():
-	global url
-	main_page = res.get(url + "getBookshelf").json()
-	return temp("bookshelf.html", main_page=main_page)
+    global url
+    main_page = res.get(url + "getBookshelf").json()
+    return temp("bookshelf.html", main_page=main_page)
 
 
 @app.route('/book/<path:p>')
-def book__info(p):
-	global url, br
-	# 拼接url
-	f_url = req.full_path
-	b_url = f_url.replace("/book/", "")
+def book_info(p):
+    global url, br
+    # 拼接url
+    f_url = req.full_path
+    b_url = f_url.replace("/book/", "")
 
-	# 获取book shelf
-	shelf = res.get(url + "getBookshelf").json()
+    # 获取book shelf
+    shelf = res.get(url + "getBookshelf").json()
 
-	book_info = dict()
-	for i in shelf['data']:
-		if i["bookUrl"] == b_url:
-			book_info = i
-	continue_read_link = "/read/0/{index}/{b_url}".format(index=book_info["durChapterIndex"], b_url=b_url)
+    book_info_ = {}
+    for i in shelf['data']:
+        if i["bookUrl"] in b_url:
+            book_info_ = i
 
-	if not "durChapterTitle" in book_info.keys():
-		lastread = "从未读过"
-	else:
-		lastread = book_info["durChapterTitle"]
-	return temp("bookinfo.html",
-				br=br, cover=book_info["coverUrl"],
-				name=book_info["name"],
-				author=book_info["author"],
-				intro=str(book_info["intro"]).replace("\n", br),
-				lastread=lastread,
-				latestread=book_info["latestChapterTitle"],
-				continue_read_link=continue_read_link, book_url=b_url)
+    continue_read_link = f'/read/0/{book_info_["durChapterIndex"]}/{b_url}'
+
+    if "durChapterTitle" not in book_info_.keys():
+        last_read = "从未读过"
+    else:
+        last_read = book_info_["durChapterTitle"]
+
+    cover = book_info_["coverUrl"] if "coverUrl" in book_info_ else '../../../../../assets/img/noCover.jpeg'
+    intro = book_info_["intro"] if 'intro' in book_info_ else '这本书没有介绍哦'
+    return temp("bookinfo.html",
+                br=br, cover=cover,
+                name=book_info_["name"],
+                author=book_info_["author"],
+                intro=str(intro).replace("\n", br),
+                lastread=last_read,
+                latestread=book_info_["latestChapterTitle"],
+                continue_read_link=continue_read_link, book_url=b_url)
 
 
-@app.route("/read/<save>/<index>/<path:p>")
-def book__read(index, save, p):
-	global url, br, next_zhang, last_zhang
-	# 拼接url
-	b_url = req.full_path.replace("/read/{save}/{index}/".format(index=index, save=save), "")
-	# 请求数据
-	json1 = {
-		"url": b_url,
-		"index": int(index),
-		"cache": 0
-	}
-	json2 = {
-		"url": b_url,
-		"refresh": 0
-	}
-	# 请求
-	text = res.post(url + "getBookContent", json=json1).json()["data"].replace("\n", br)
-	chapter = res.post(url + "getChapterList", json=json2).json()["data"]
-	chapter_name = chapter[int(index)]["title"]
-	if int(save) == 1:
-		json3 = {
-			"url": url,
-			"index": index
-		}
-		res.post(url + "saveBookProgress", json=json3)
+@app.route("/read/<save>/<index_>/<path:p>")
+def book_read(index_, save, p):
+    global url, br
 
-	if not index == "0":
-		last_zhang = "/read/1/{index}/{b_url}".format(index=str(int(index) - 1), b_url=b_url)
-		last_zhang = 'href="{link}"'.format(link=last_zhang)
-	elif index == "0":
-		last_zhang = 'onclick="alert(\'没有上一章啦\');"'
+    # 拼接url
+    # index和外部函数重名的,容易出bug,改成index_了
+    b_url = req.full_path.replace(f"/read/{save}/{index_}/", "").replace('?', '')
+    # 请求数据
+    get_content_json = {
+        "url": b_url,
+        "index": int(index_),
+        "cache": 0
+    }
+    get_list_json = {
+        "url": b_url,
+        "refresh": 0
+    }
+    # 请求
+    text = res.post(url + "getBookContent", json=get_content_json).json()["data"].replace("\n", br)
+    chapter = res.post(url + "getChapterList", json=get_list_json).json()["data"]
+    chapter_name = chapter[int(index_)]["title"]
+    if int(save) == 1:
+        save_book_json = {
+            "url": url,
+            "index": index_
+        }
+        res.post(url + "saveBookProgress", json=save_book_json)
 
-	if not index == str(len(chapter) - 1):
-		next_zhang = "/read/1/{index}/{b_url}".format(index=str(int(index) + 1), b_url=b_url)
-		next_zhang = 'href="{link}"'.format(link=next_zhang)
-	elif index == str(len(chapter) - 1):
-		next_zhang = 'onclick="alert(\'没有下一章啦\');"'
+    if not index_ == '0':
+        last_chapter = f'/read/1/{int(index_) - 1}/{b_url}'
+        last_chapter = f'href="{last_chapter}"'
+    elif index_ == '0':
+        last_chapter = 'onclick="alert(\'没有上一章啦\');"'
 
-	return temp("readbook.html", chaptername=chapter_name,
-				br=br, text=text,
-				next_zhang=next_zhang, last_zhang=last_zhang, bookurl=b_url)
+    if index_ != str(len(chapter) - 1):
+        next_chapter = f'/read/1/{int(index_) + 1}/{b_url}'
+        next_chapter = f'href="{next_chapter}"'
+    else:
+        next_chapter = 'onclick="alert(\'没有下一章啦\');"'
+
+    return temp("readbook.html", chaptername=chapter_name,
+                br=br, text=text,
+                next_zhang=next_chapter, last_zhang=last_chapter, bookurl=b_url)
 
 
 @app.route("/chapter/<page>/<path:p>")
 def book_chapter(page, p):
-	global book_info
-	book_url = req.full_path.replace("/chapter/{page}/".format(page=page), "")
-	json = {
-		"url": book_url,
-		"refresh": 1
-	}
+    page_int = int(page)
+    book_url = req.full_path.replace(f"/chapter/{page}/", "")
+    get_list_json = {
+        "url": book_url,
+        "refresh": 1
+    }
 
-	shelf = res.get(url + "getBookshelf").json()["data"]
-	for i in shelf:
-		if i["bookUrl"] == book_url:
-			book_info = i
+    shelf = res.get(url + "getBookshelf").json()["data"]
+    for i in shelf:
+        if i["bookUrl"] == book_url:
+            book_info_ = i
 
-	chapter = res.post(url + "getChapterList", json=json).json()["data"]
-	read_chapter = list()
+    chapter = res.post(url + "getChapterList", json=get_list_json).json()["data"]
+    latest = int()
+    read_chapter = list()
 
-	latest = int()
-	for i in range((int(page) - 1) * 20, (int(page) - 1) * 20 + 20):
-		if i >= len(chapter):
-			latest = i
-			break
-		read_chapter.append(chapter[i])
-		latest = i
+    for i in range((page_int - 1) * 20, (page_int - 1) * 20 + 20):
+        if i >= len(chapter):
+            latest = i
+            break
+        read_chapter.append(chapter[i])
+        latest = i
 
-	if page == str(1):
-		lastpage = 'onclick="alert(\'没有上一章啦\');"'
-	elif not page == str(1):
-		lastpage = '/chapter/{page}/{url}'.format(page=str(int(page) - 1), url=book_url)
-		lastpage = 'href="{link}"'.format(link=lastpage)
+    if page == '1':
+        last_page = 'onclick="alert(\'没有上一章啦\');"'
+    else:
+        last_page = f'/chapter/{page_int - 1}/{book_url}'
+        last_page = f'href="{last_page}"'
 
-	if (int(page) * 20) >= len(chapter):
-		nextpage = 'onclick="alert(\'没有下一章啦\');"'
-	elif not (int(page)) >= len(chapter):
-		nextpage = '/chapter/{page}/{url}'.format(page=str(int(page) + 1), url=book_url)
-		nextpage = 'href="{link}"'.format(link=nextpage)
+    if (page_int * 20) >= len(chapter):
+        next_page = 'onclick="alert(\'没有下一章啦\');"'
+    elif page_int < len(chapter):
+        next_page = f'/chapter/{page_int + 1}/{book_url}'
+        next_page = f'href="{next_page}"'
 
-	link = '/book/{link}'.format(link=book_url)
-	return temp("chapter.html", name=book_info["name"], page=page, chapter=read_chapter, book_url=book_url,
-				lastpage=lastpage, nextpage=nextpage, link=link)
+    link = f'/book/{book_url}'
+    return temp("chapter.html", name=book_info_["name"], page=page, chapter=read_chapter, book_url=book_url,
+                lastpage=last_page, nextpage=next_page, link=link)
 
 
 if __name__ == "__main__":
-	reader_start.start()
-	app.run(host='0.0.0.0', debug=True)
+    t = threading.Thread(name='reader', target=reader_thread, daemon=True)
+    t.start()
+    app.run(host='0.0.0.0', debug=True)
