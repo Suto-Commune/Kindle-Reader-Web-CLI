@@ -128,7 +128,7 @@ def book_read(index_, save, p):
 def book_chapter(page, p):
     # 初始化参数
     page_int = int(page)
-    book_url = req.full_path.replace(f"/chapter/{page}/", "")
+    book_url = req.full_path.replace(f"/chapter/{page}/", "").replace('?','')
 
     # 取书架
     shelf = res.get(url + "getBookshelf").json()["data"]
