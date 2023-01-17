@@ -181,4 +181,8 @@ if __name__ == "__main__":
     t_flask = threading.Thread(name='reader', target=flask_thread, daemon=True)
     t.start()
     t_flask.start()
-    t.join()
+    while True:
+        try:
+            t.join(timeout=0.1)
+        except KeyboardInterrupt:
+            sys.exit()
