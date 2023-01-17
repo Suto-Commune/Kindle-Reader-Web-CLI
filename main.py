@@ -19,7 +19,7 @@ def reader_thread():
     try:
         subprocess.check_output(['java', '-jar', 'reader-pro-2.7.3.jar'])
     except:
-        logging.getLogger(__name__).critical('Unable to load threads:reader')
+        logging.getLogger(__name__).critical('Unable to load thread:"reader",please check file or java integrity.')
         sys.exit()
 
 
