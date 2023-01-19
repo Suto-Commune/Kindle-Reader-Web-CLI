@@ -6,7 +6,6 @@ import os
 import time
 import zipfile
 import io
-import platform
 
 import requests as res
 from flask import Flask as fl
@@ -35,33 +34,62 @@ def flask_thread():
     app.run(host='0.0.0.0', debug=False, port=port)
 
 
-def print_text():
-    time.sleep(3)
-    print("[INFO]")
+def print_thread():
+    print("[INFO] --- PRINT ---")
     print("\tKindle-Reader-Web-Client Start!")
     print("\tGithub: https://github.com/Suto-Commune/Kindle-Reader-Web-CLI/")
     print("\tAuthor LolingNatsumi,hsn8086")
     print(
-        f"\t * Kindle Web: http://127.0.0.1:5000\n\t * Reader Web: http://127.0.0.1:8080")
+        f"\t * Kindle Web: http://127.0.0.1:5000 or http://127.0.0.1:1000\n\t * Reader Web: http://127.0.0.1:8080 or http://127.0.0.1:1000/reader")
+    print("[INFO] --- PRINT END---")
+
+
+def nginx_thread():
+    try:
+        os.system("cd nginx && nginx")
+    except:
+        logging.getLogger(__name__).critical('Unable to load thread:"nginx",please check file or nginx integrity.')
+        sys.exit()
 
 
 # 线程创建
-t_flask = threading.Thread(name='reader', target=flask_thread, daemon=True)
-t_print = threading.Thread(name='reader', target=print_text, daemon=True)
-t = threading.Thread(name='reader', target=reader_thread, daemon=True)
+t_flask = threading.Thread(name='flask', target=flask_thread, daemon=True)
+t_print = threading.Thread(name='print', target=print_thread, daemon=True)
+t_reader = threading.Thread(name='reader', target=reader_thread, daemon=True)
+t_nginx = threading.Thread(name='nginx', target=nginx_thread, daemon=True)
 
 
 def thread_starter():
-    t.start()
     t_print.start()
+    time.sleep(1)
+    t_reader.start()
     t_flask.start()
+    t_nginx.start()
+
+
+# 启动函数
+def start():
+    thread_starter()
+    while True:
+        try:
+            t_reader.join(timeout=0.1)
+        except KeyboardInterrupt:
+            sys.exit()
 
 
 # 获取bookurl
 def get_book_url(url_path: str):
     url_path = req.full_path.replace(url_path, "")
-    if "txt" and url_path[-1] == "?":
+
+    if "txt" in url_path and url_path[-1] == "?":
         url_path = url_path[0:len(url_path) - 1]
+
+    if "epub" in url_path and url_path[-1] == "?":
+        url_path = url_path[0:len(url_path) - 1]
+
+    if "https:/" in url_path and "https://" not in url_path:
+        url_path = url_path.replace("https:/", "https://")
+
     return url_path
 
 
@@ -234,15 +262,5 @@ def book_chapter(page, p):
 
 
 if __name__ == "__main__":
-    try:
-        if sys.argv[1] == "debug":
-            app.run(host='0.0.0.0', debug=True)
-        else:
-            thread_starter()
-    except:
-        thread_starter()
-    while True:
-        try:
-            t.join(timeout=0.1)
-        except KeyboardInterrupt:
-            sys.exit()
+    # app.run(host='0.0.0.0', debug=True)
+    start()
