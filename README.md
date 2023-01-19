@@ -12,4 +12,10 @@ pip install -r requirements.txt
 start.bat
 
 ```
-or [使用docker](https://hub.docker.com/layers/lolingnatsumi/kindle-reader-web-cli/latest/images/sha256:13b978bcb741a87b4c83233d4fbf99c72d1bda14ba4e5ec449789d034273e84d):
+or [使用docker](https://hub.docker.com/repository/docker/lolingnatsumi/kindle-reader-web-cli/general)
+
+---
+
+在render中部署：
+
+
