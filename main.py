@@ -6,6 +6,8 @@ import os
 import time
 import zipfile
 import io
+import atexit
+import platform
 
 import requests as res
 from flask import Flask as fl
@@ -76,19 +78,27 @@ def start():
         except KeyboardInterrupt:
             sys.exit()
 
+def exit_do():
+    try:
+        if platform.system() == "Windows":
+            os.system("taskkill /f /im nginx.exe")
+        else:
+            os.system("killall -9 nginx")
+            os.system("killall -9 nginx")
+    except:
+        ...
 
 # 获取bookurl
 def get_book_url(url_path: str):
     url_path = req.full_path.replace(url_path, "")
 
-    if "txt" in url_path and url_path[-1] == "?":
-        url_path = url_path[0:len(url_path) - 1]
-
-    if "epub" in url_path and url_path[-1] == "?":
+    if url_path[-1] == "?":
         url_path = url_path[0:len(url_path) - 1]
 
     if "https:/" in url_path and "https://" not in url_path:
         url_path = url_path.replace("https:/", "https://")
+    if "http:/" in url_path and "http://" not in url_path:
+        url_path = url_path.replace("http:/", "http://")
 
     return url_path
 
@@ -262,5 +272,6 @@ def book_chapter(page, p):
 
 
 if __name__ == "__main__":
+    atexit.register(exit_do)
     # app.run(host='0.0.0.0', debug=True)
     start()
