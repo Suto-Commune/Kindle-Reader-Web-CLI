@@ -8,6 +8,9 @@ import zipfile
 import io
 import atexit
 import platform
+import re
+from urllib.parse import unquote
+from urllib.parse import quote
 
 import requests as res
 from flask import Flask as fl
@@ -95,11 +98,11 @@ def get_book_url(url_path: str):
     if url_path[-1] == "?":
         url_path = url_path[0:len(url_path) - 1]
 
-    if "https:/" in url_path and "https://" not in url_path:
-        url_path = url_path.replace("https:/", "https://")
-    if "http:/" in url_path and "http://" not in url_path:
-        url_path = url_path.replace("http:/", "http://")
-
+    regex = r"(http.:/)([^/])"
+    subst = "https://\\g<2>"
+    url_path=re.sub(regex, subst, url_path, 0, re.MULTILINE)
+    
+    url_path=unquote(url_path)
     return url_path
 
 
@@ -144,12 +147,14 @@ def book_info(p):
         if i["bookUrl"] in b_url:
             book_info_ = i
 
-    continue_read_link = f'/read/0/{book_info_["durChapterIndex"]}/{b_url}'
+    
 
     if "durChapterTitle" not in book_info_.keys():
         last_read = "从未读过"
+        continue_read_link = f'/read/0/0/{b_url}'
     else:
         last_read = book_info_["durChapterTitle"]
+        continue_read_link = f'/read/0/{book_info_["durChapterIndex"]}/{b_url}'
 
     cover = book_info_["coverUrl"] if "coverUrl" in book_info_ else '/assets/img/noCover.jpeg'
     intro = book_info_["intro"] if 'intro' in book_info_ else '这本书没有介绍哦'
@@ -212,14 +217,14 @@ def book_read(index_, save, p):
     # 按钮
     # 判断上一章是否存在
     if index_ != '0':
-        last_chapter = f'/read/1/{int(index_) - 1}/{b_url}'
+        last_chapter = f'/read/1/{int(index_) - 1}/{quote(b_url)}'
         last_chapter = f'href="{last_chapter}"'
     else:
         last_chapter = 'onclick="alert(\'没有上一章啦\');"'
 
     # 判断下一章是否存在
     if index_ != str(len(chapter) - 1):
-        next_chapter = f'/read/1/{int(index_) + 1}/{b_url}'
+        next_chapter = f'/read/1/{int(index_) + 1}/{quote(b_url)}'
         next_chapter = f'href="{next_chapter}"'
     else:
         next_chapter = 'onclick="alert(\'没有下一章啦\');"'
@@ -255,13 +260,13 @@ def book_chapter(page, p):
         read_chapter.append(chapter[i])
 
     if page == '1':
-        last_page = 'onclick="alert(\'没有上一章啦\');"'
+        last_page = 'onclick="alert(\'没有上一页啦\');"'
     else:
         last_page = f'/chapter/{page_int - 1}/{b_url}'
         last_page = f'href="{last_page}"'
 
     if (page_int * 20) >= len(chapter):
-        next_page = 'onclick="alert(\'没有下一章啦\');"'
+        next_page = 'onclick="alert(\'没有下一页啦\');"'
     elif page_int < len(chapter):
         next_page = f'/chapter/{page_int + 1}/{b_url}'
         next_page = f'href="{next_page}"'

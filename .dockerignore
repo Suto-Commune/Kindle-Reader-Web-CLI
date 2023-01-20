@@ -5,3 +5,4 @@ Dockerfile
 .idea
 logs
 storage
+127.0.0.1_80.conf
