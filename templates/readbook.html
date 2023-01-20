@@ -31,7 +31,8 @@
         }
         .cssbutton {
             margin-top:32px;
-            height:40px
+            height:40px;
+            z-index: 3;
         }
         .cssbutton a {
             text-decoration:none;
@@ -66,11 +67,15 @@
             text-align: center;
         }
 		</style>
+        <script>var hhh=0;
+        </script>
 	</head>
 	<body>
+        {{ change_page | safe }}
 		<div class="title">{{ chaptername }}</div>
         {{ br | safe }}
         <div class="text">
+            
             {{ text | safe }}
         </div>
 

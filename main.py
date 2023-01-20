@@ -81,6 +81,7 @@ def start():
         except KeyboardInterrupt:
             sys.exit()
 
+
 def exit_do():
     try:
         if platform.system() == "Windows":
@@ -91,6 +92,7 @@ def exit_do():
     except:
         ...
 
+
 # 获取bookurl
 def get_book_url(url_path: str):
     url_path = req.full_path.replace(url_path, "")
@@ -100,9 +102,9 @@ def get_book_url(url_path: str):
 
     regex = r"(http.:/)([^/])"
     subst = "https://\\g<2>"
-    url_path=re.sub(regex, subst, url_path, 0, re.MULTILINE)
-    
-    url_path=unquote(url_path)
+    url_path = re.sub(regex, subst, url_path, 0, re.MULTILINE)
+
+    url_path = unquote(url_path)
     return url_path
 
 
@@ -121,6 +123,7 @@ app = fl(__name__, static_folder='storage', static_url_path='')
 # 初始化全局变量
 url = "http://127.0.0.1:8080/reader3/"
 br = '<div class="wb"></div>'
+read_mode = 0
 
 
 @app.route("/")
@@ -146,8 +149,6 @@ def book_info(p):
     for i in shelf['data']:
         if i["bookUrl"] in b_url:
             book_info_ = i
-
-    
 
     if "durChapterTitle" not in book_info_.keys():
         last_read = "从未读过"
@@ -229,9 +230,14 @@ def book_read(index_, save, p):
     else:
         next_chapter = 'onclick="alert(\'没有下一章啦\');"'
 
+    if read_mode == 1:
+        change_page = '<div name="change_page"><div style="z-index: 2;height: 100%;width: 20%;position: fixed;margin-right: 80%;"onclick="window.scroll(window.scrollY,window.scrollY-document.body.clientHeight);"></div><div style="z-index: 2;height: 100%;width: 20%;position: fixed;margin-left: 80%;"onclick="window.scroll(window.scrollY,window.scrollY+document.body.clientHeight);"></div></div>'
+    else:
+        change_page = ""
+
     return temp("readbook.html", chaptername=chapter_name,
                 br=br, text=text,
-                next_zhang=next_chapter, last_zhang=last_chapter, bookurl=b_url)
+                next_zhang=next_chapter, last_zhang=last_chapter, bookurl=b_url, change_page=change_page)
 
 
 @app.route("/chapter/<page>/<path:p>")
@@ -272,8 +278,16 @@ def book_chapter(page, p):
         next_page = f'href="{next_page}"'
 
     link = f'/book/{b_url}'
+
     return temp("chapter.html", name=book_info_["name"], page=page, chapter=read_chapter, book_url=b_url,
                 lastpage=last_page, nextpage=next_page, link=link)
+
+
+@app.route("/mode/<int:modeid>")
+def mode_change(modeid):
+    global read_mode
+    read_mode = modeid
+    return '<h1>3秒后返回，刷新页面生效</h1><script>function sleep(time){var timeStamp=new Date().getTime();var endTime=timeStamp+time;while(true){if(new Date().getTime()>endTime){return}}};sleep(3000);window.history.back();</script>'
 
 
 if __name__ == "__main__":
