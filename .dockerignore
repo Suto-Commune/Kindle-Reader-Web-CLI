@@ -2,3 +2,6 @@
 .idea
 .git
 Dockerfile
+.idea
+logs
+storage
