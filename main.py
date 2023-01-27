@@ -47,6 +47,7 @@ def print_thread():
     print("\tAuthor LolingNatsumi,hsn8086,GooGuJiang")
     print(
         f"\t * Kindle Web: http://127.0.0.1:5000 or http://127.0.0.1:1000\n\t * Reader Web: http://127.0.0.1:8080 or http://127.0.0.1:1000/reader")
+    print("\tPress Ctrl+C to exit.")
     print("[INFO] --- PRINT END---")
 
 
@@ -64,6 +65,7 @@ def wsgi_thread():
         port1=port
     server = pywsgi.WSGIServer(('0.0.0.0', port1), app)
     server.serve_forever()
+
 
 
 # 线程创建
@@ -308,5 +310,26 @@ if __name__ == "__main__":
     # app.run(host='0.0.0.0', debug=True)
     global DEBUG
     DEBUG=False
+    if platform.system() == "Windows":
+        try:
+            import win32console,win32gui,win32con
+            hwnd = win32console.GetConsoleWindow()
+            if hwnd:
+                hMenu = win32gui.GetSystemMenu(hwnd, 0)
+                if hMenu:
+                    win32gui.EnableMenuItem(
+                        hMenu, win32con.SC_CLOSE, win32con.MF_DISABLED)
+        except:
+            try:
+                os.system("pip install pywin32")
+                import win32console,win32gui,win32con
+                hwnd = win32console.GetConsoleWindow()
+                if hwnd:
+                    hMenu = win32gui.GetSystemMenu(hwnd, 0)
+                    if hMenu:
+                        win32gui.EnableMenuItem(
+                            hMenu, win32con.SC_CLOSE, win32con.MF_DISABLED)
+            except:
+                ...
     start()
 
