@@ -62,7 +62,7 @@ def wsgi_thread():
         port1=5000
     else:
         port1=port
-    server = pywsgi.WSGIServer(('0.0.0.0', port), app)
+    server = pywsgi.WSGIServer(('0.0.0.0', port1), app)
     server.serve_forever()
 
 
