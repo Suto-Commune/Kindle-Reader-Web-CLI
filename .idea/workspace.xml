@@ -8,9 +8,6 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nginx/logs/nginx.pid" beforeDir="false" afterPath="$PROJECT_DIR$/nginx/logs/nginx.pid" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/bookinfo.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/bookinfo.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/bookshelf.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/bookshelf.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/readbook.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/readbook.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
