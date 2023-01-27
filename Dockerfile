@@ -16,7 +16,7 @@ EXPOSE 5000
 EXPOSE 8080
 COPY requirements.txt .
 RUN chmod +x requirements.txt
-RUN pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
+RUN pip install -r requirements.txt
 COPY . .
 
 CMD ["sh","start.sh" ]
