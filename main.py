@@ -1,25 +1,7 @@
-import logging
-import subprocess
-import sys
-import threading
-import os
-import time
-import zipfile
-import io
-import atexit
-import platform
-import re
-from urllib.parse import unquote
-from urllib.parse import quote
-
-import requests as res
-from flask import Flask as fl
-from flask import render_template as temp
-from flask import request as req
-from gevent import pywsgi
-
+from head.modules import *
+from head.config import *
 # 配置
-port = None
+
 
 
 # 创建reader线程
@@ -308,8 +290,7 @@ def mode_change(modeid):
 if __name__ == "__main__":
     atexit.register(exit_do)
     # app.run(host='0.0.0.0', debug=True)
-    global DEBUG
-    DEBUG=False
+
     if platform.system() == "Windows":
         try:
             import win32console,win32gui,win32con

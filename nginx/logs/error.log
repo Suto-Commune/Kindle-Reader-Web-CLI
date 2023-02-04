@@ -15,3 +15,4 @@
 2023/01/19 16:56:17 [error] 14984#3764: *1 upstream timed out (10060: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond) while reading response header from upstream, client: 127.0.0.1, server: 127.0.0.1, request: "GET /reader/ HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "127.0.0.1:1000"
 2023/01/19 17:25:17 [notice] 16308#11928: signal process started
 2023/01/19 17:25:51 [notice] 5124#2192: signal process started
+2023/02/04 21:03:11 [emerg] 7704#15044: CreateDirectory() "D:\Users\Natsumi\Documents\GitHub\Kindle-Reader-Web-CLI\nginx/temp/client_body_temp" failed (3: The system cannot find the path specified)
