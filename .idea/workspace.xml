@@ -5,14 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7e2a297a-952b-48f1-b4bc-7c84c4401b35" name="变更" comment="">
-      <change afterPath="$PROJECT_DIR$/head/backup.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.dockerignore" beforeDir="false" afterPath="$PROJECT_DIR$/.dockerignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/head/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/head/config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/head/func.py" beforeDir="false" afterPath="$PROJECT_DIR$/head/func.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/head/thread.py" beforeDir="false" afterPath="$PROJECT_DIR$/head/thread.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nginx/logs/nginx.pid" beforeDir="false" afterPath="$PROJECT_DIR$/nginx/logs/nginx.pid" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
