@@ -11,6 +11,7 @@ def git():
     os.system("cd storage & git add .")
     os.system(f'cd storage & git commit -m "Backup {datetime.datetime.now()}')
     os.system(f"cd storage & git push {origin} main:main")
+    print(f"cd storage & git push {origin} main:main")
 
 
 def backup():
