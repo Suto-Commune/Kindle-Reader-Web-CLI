@@ -4,6 +4,8 @@ kindle端: http://IP:5000
 
 web端: http://IP:8080
 
+**配置文件在head/config下！！！**
+
 ---
 
 如何部署：
@@ -12,6 +14,7 @@ pip install -r requirements.txt
 start.bat
 
 ```
+
 or [使用docker](https://hub.docker.com/repository/docker/lolingnatsumi/kindle-reader-web-cli/general)
 
 ---
