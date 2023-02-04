@@ -5,4 +5,3 @@ storage
 nginx/logs/nginx.pid
 config.py
 head/config.py
-head/config.py
