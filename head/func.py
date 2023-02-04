@@ -30,6 +30,7 @@ def ban_windows_window_close_button():
 
 # 启动函数
 def start():
+    create_img()
     thread_starter()
     while True:
         try:

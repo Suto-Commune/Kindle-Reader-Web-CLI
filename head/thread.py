@@ -9,6 +9,7 @@ from gevent import pywsgi
 
 from head.config import *
 from head.server import app
+from head.backup import backup
 
 
 # 创建reader线程
@@ -49,12 +50,20 @@ def nginx_thread():
 
 
 def wsgi_thread():
-    if port == None:
+    if port is None:
         port1 = 5000
     else:
         port1 = port
     server = pywsgi.WSGIServer(('0.0.0.0', port1), app)
     server.serve_forever()
+
+
+def backup_thread():
+    if AUTO_BACKUP:
+        backup()
+    elif not AUTO_BACKUP:
+        print("[INFO]Doesn't OPEN AUTO_BACKUP.")
+        sys.exit()
 
 
 # 线程创建
@@ -63,6 +72,7 @@ t_print = threading.Thread(name='print', target=print_thread, daemon=True)
 t_reader = threading.Thread(name='reader', target=reader_thread, daemon=True)
 t_nginx = threading.Thread(name='nginx', target=nginx_thread, daemon=True)
 t_wsgi = threading.Thread(name='wsgi', target=wsgi_thread, daemon=True)
+t_backup = threading.Thread(name='backup', target=backup_thread, daemon=True)
 
 
 # 线程启动
@@ -70,8 +80,9 @@ def thread_starter():
     t_print.start()
     time.sleep(1)
     t_reader.start()
-    if DEBUG == True:
+    t_backup.start()
+    if DEBUG:
         t_flask.start()
-    elif DEBUG == False:
+    elif not DEBUG:
         t_wsgi.start()
     t_nginx.start()
