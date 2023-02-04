@@ -16,6 +16,7 @@ def git():
 
 def backup():
     print("[INFO]\tFirst backup will start after 20s.")
+    time.sleep(20)
     while True:
         print("[INFO]\tStart backup.")
         git()
