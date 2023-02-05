@@ -2,8 +2,9 @@ import platform
 
 import io
 import zipfile
-from head.thread import *
 import os
+from head.thread import *
+from head.aes import aes_decode
 
 
 # 创建Nocover.png
@@ -15,9 +16,6 @@ def create_img():
             for file in f.namelist():
                 f.extract(file, "./storage/assets/img/")
             f.close()
-
-
-# 创建Config.py
 
 
 # 禁用Windows下的关闭按钮使得关闭程序只能使用Ctrl+C

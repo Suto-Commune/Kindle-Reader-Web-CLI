@@ -6,6 +6,7 @@ from urllib.parse import unquote
 from urllib.parse import quote
 
 from head.config import *
+from head.aes import aes_encode
 
 import requests as res
 import re
@@ -24,6 +25,7 @@ def get_book_url(url_path: str):
 
     url_path = unquote(url_path)
     return url_path
+
 
 # 定义FlaskAPP
 
@@ -192,3 +194,8 @@ def mode_change(modeid):
     global read_mode
     read_mode = modeid
     return '<h1>3秒后返回，刷新页面生效</h1><script>function sleep(time){var timeStamp=new Date().getTime();var endTime=timeStamp+time;while(true){if(new Date().getTime()>endTime){return}}};sleep(3000);window.history.back();</script>'
+
+
+@app.route("/aes/<path:p>")
+def encode(p):
+    return str(aes_encode(p))
