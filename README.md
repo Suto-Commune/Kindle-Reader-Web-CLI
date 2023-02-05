@@ -1,8 +1,8 @@
 一键运行：`python main.py`
 
-kindle端: http://IP:5000
+kindle端: http://IP:5000 or http://IP:1000
 
-web端: http://IP:8080
+web端: http://IP:8080 or http://IP:1000/reader
 
 **配置文件在head/config下！！！**
 
