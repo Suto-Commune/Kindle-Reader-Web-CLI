@@ -29,17 +29,55 @@ def get_book_url(url_path: str):
 
 # 定义FlaskAPP
 
-app = fl(__name__, static_folder='storage', static_url_path='')
+app = fl(__name__, static_folder='../storage', static_url_path='')
 
 
 @app.route("/")
 def index():
     global url
+    main_page = res.get(url + "getBookGroups").json()
+    main_page["data"].pop(1)
+    main_page["data"].pop(1)
+    return temp("groups.html", main_page=main_page)
+
+
+@app.route("/bookshelf/")
+def refresh_bookshelf():
+    return '<meta http-equiv="refresh" content="0;url=./-1">'
+
+
+@app.route("/bookshelf/<string:group>")
+def bookshelf(group="-1"):
+    global group_name
     main_page = res.get(url + "getBookshelf").json()
-    for got_book_info in main_page['data']:
-        got_book_info["coverUrl"] = got_book_info[
-            "coverUrl"] if "coverUrl" in got_book_info else '/assets/img/noCover.jpeg'
-    return temp("bookshelf.html", main_page=main_page)
+
+    group_sss = res.get(url + "getBookGroups").json()["data"]
+
+    for i in group_sss:
+        if int(group) == "0":
+            group_name = "未分组"
+            break
+        elif int(i["groupId"]) == int(group):
+            group_name = i["groupName"]
+            break
+
+    if group == "-1":
+        for got_book_info in main_page['data']:
+            got_book_info["groups"] = got_book_info[
+                "coverUrl"] if "coverUrl" in got_book_info else '/assets/img/noCover.jpeg'
+        return temp("bookshelf.html", main_page=main_page,group_name=group_name)
+    if group == "-4":
+        return '<meta http-equiv="refresh" content="0;url=/bookshelf/0">'
+    else:
+        in_list = {"data": []}
+        for i in range(0, len(main_page["data"])):
+            if int(main_page["data"][i]["group"]) == int(group):
+                in_list["data"].append(main_page["data"][i])
+        main_page = in_list
+        for got_book_info in main_page['data']:
+            got_book_info["groups"] = got_book_info[
+                "coverUrl"] if "coverUrl" in got_book_info else '/assets/img/noCover.jpeg'
+        return temp("bookshelf.html", main_page=main_page,group_name=group_name)
 
 
 @app.route('/book/<path:p>')

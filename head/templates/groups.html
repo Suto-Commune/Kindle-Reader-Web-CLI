@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<title>{{ group_name }}</title>
+		<title>Kindle-Reader-Web-CLI</title>
 		<style>
 			.jz {
 				text-align:center
@@ -53,7 +53,7 @@
 						dotted#a2a9b6
 			}
 			.bookcard{
-				border:3px solid rgb(255, 255, 255);
+				border:3px solid rgb(95, 81, 81);
 				border-radius:5px;
 				box-shadow: 0 0 5px rgba(0, 0, 0, 0.027);
 			}
@@ -67,26 +67,24 @@
 			
 			}
 			.bookcard-text{
-				margin-top: 15px;
+				border:3px solid rgb(255, 255, 255);
 			}
 
 		</style>
 	</head>
 	<body>
 		<div class="jz">
-			<h1>{{ group_name }}</h1>
+			<h1>书架</h1>
 		</div>
 		<div class="wb"></div>
 		
 		<div class="divvvv">
 		
-		{%for i in main_page['data']%}
-			<div onclick="window.location.href='/book/{{ i['bookUrl'] }}';">
+		{%for i in main_page['data'] %}
+			<div onclick="window.location.href='/bookshelf/{{ i['groupId'] }}';">
 				<div class="bookcard">
-					<img class="bookcard-img" height="150" src="{{ i['coverUrl'] }}">
-					<br/>
 					<div class="bookcard-text">
-					<a class="jz bookcard-text-c">{{ i['name'] }}</a>
+					<a class="jz bookcard-text-c">{{ i['groupName'] }}</a>
 					</div>
 				</div>		
 				<div class="wb"></div>	
