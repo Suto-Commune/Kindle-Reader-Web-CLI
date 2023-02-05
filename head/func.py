@@ -20,7 +20,6 @@ def create_img():
 # 创建Config.py
 
 
-
 # 禁用Windows下的关闭按钮使得关闭程序只能使用Ctrl+C
 def ban_windows_window_close_button():
     import win32console, win32gui, win32con
@@ -32,8 +31,18 @@ def ban_windows_window_close_button():
                 hMenu, win32con.SC_CLOSE, win32con.MF_DISABLED)
 
 
+def storage_clone():
+    if CLONE_MODE and not os.path.exists("storage"):
+        os.mkdir("storage")
+        print("[INFO]\tCLONE_MODE Enable.Start Clone...")
+        os.system(f"cd storage & git clone https://github.com/{github_name}/{github_repo}.git")
+    elif not CLONE_MODE:
+        print("[INFO]\tCLONE_MODE Disable.")
+
+
 # 启动函数
 def start():
+    storage_clone()
     create_img()
     thread_starter()
     while True:
