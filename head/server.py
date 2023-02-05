@@ -19,8 +19,8 @@ def get_book_url(url_path: str):
     if url_path[-1] == "?":
         url_path = url_path[0:len(url_path) - 1]
 
-    regex = r"(http.:/)([^/])"
-    subst = "https://\\g<2>"
+    regex = r"(http:/|https:/)([^/])"
+    subst = "\\g<1>/\\g<2>"
     url_path = re.sub(regex, subst, url_path, 0, re.MULTILINE)
 
     url_path = unquote(url_path)
@@ -65,7 +65,7 @@ def bookshelf(group="-1"):
         for got_book_info in main_page['data']:
             got_book_info["groups"] = got_book_info[
                 "coverUrl"] if "coverUrl" in got_book_info else '/assets/img/noCover.jpeg'
-        return temp("bookshelf.html", main_page=main_page,group_name=group_name)
+        return temp("bookshelf.html", main_page=main_page, group_name=group_name)
     if group == "-4":
         return '<meta http-equiv="refresh" content="0;url=/bookshelf/0">'
     else:
@@ -77,7 +77,7 @@ def bookshelf(group="-1"):
         for got_book_info in main_page['data']:
             got_book_info["groups"] = got_book_info[
                 "coverUrl"] if "coverUrl" in got_book_info else '/assets/img/noCover.jpeg'
-        return temp("bookshelf.html", main_page=main_page,group_name=group_name)
+        return temp("bookshelf.html", main_page=main_page, group_name=group_name)
 
 
 @app.route('/book/<path:p>')

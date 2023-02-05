@@ -33,7 +33,7 @@ def storage_clone():
     if CLONE_MODE and not os.path.exists("storage"):
         os.mkdir("storage")
         print("[INFO]\tCLONE_MODE Enable.Start Clone...")
-        os.system(f"cd storage & git clone https://github.com/{github_name}/{github_repo}.git")
+        os.system(f"cd storage & git clone https://github.com/{github_name}/{github_repo}.git .")
     elif not CLONE_MODE:
         print("[INFO]\tCLONE_MODE Disable.")
 
