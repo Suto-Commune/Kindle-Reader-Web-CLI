@@ -6,9 +6,8 @@ web端: http://IP:8080
 
 **配置文件在head/config下！！！**
 
-示例配置文件
+示例配置文件 config.py
 ```
-
 port = None
 DEBUG = False
 url = "http://127.0.0.1:8080/reader3/"
@@ -16,14 +15,14 @@ url = "http://127.0.0.1:8080/reader3/"
 AUTO_BACKUP = False  # 自动备份到GIT
 AUTO_BACKUP_TIME = 3600  # 自动备份间隔时间
 CLONE_MODE = False  # 初次启动恢复上次备份
-github_token = "Github_Token"
 github_name = "Github_Username"
 github_repo = "Github_repo_name"
+github_token = "Github_Token_AES"  # 访问/aes/<github_token>获取
+AES_KEY = "1234567890"  # AES密钥
 
 # 系统环境变量
 br = '<div class="wb"></div>'
 read_mode = 0
-
 ```
 
 ---
