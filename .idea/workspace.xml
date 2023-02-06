@@ -5,30 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7e2a297a-952b-48f1-b4bc-7c84c4401b35" name="变更" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/head/func.py" beforeDir="false" afterPath="$PROJECT_DIR$/head/func.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/head/server.py" beforeDir="false" afterPath="$PROJECT_DIR$/head/server.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nginx/logs/access.log" beforeDir="false" afterPath="$PROJECT_DIR$/nginx/logs/access.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nginx/logs/nginx.pid" beforeDir="false" afterPath="$PROJECT_DIR$/nginx/logs/nginx.pid" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage1/cache/invalidBookSourceCache/default/-991083983" beforeDir="false" afterPath="$PROJECT_DIR$/storage1/cache/invalidBookSourceCache/default/-991083983" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage1/data/default/bookshelf.json" beforeDir="false" afterPath="$PROJECT_DIR$/storage1/data/default/bookshelf.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage1/data/default/不是吧，我变成猫娘有这么可爱？_星星不是心心/550cf5b92f1102f852350954810d32a2.json" beforeDir="false" afterPath="$PROJECT_DIR$/storage1/data/default/不是吧，我变成猫娘有这么可爱？_星星不是心心/550cf5b92f1102f852350954810d32a2.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage1/data/default/冰与火之歌：权力的游戏（图像小说 1-4）_（美）乔治·R.R.马丁，屈畅，王晔，陈亦萱，黄嘉铭，（美）汤米·帕特森 绘，（美）丹尼尔·亚伯拉罕 改/b6d21686cb28256ff188bd1ee5d2bc36.json" beforeDir="false" afterPath="$PROJECT_DIR$/storage1/data/default/冰与火之歌：权力的游戏（图像小说 1-4）_（美）乔治·R.R.马丁，屈畅，王晔，陈亦萱，黄嘉铭，（美）汤米·帕特森 绘，（美）丹尼尔·亚伯拉罕 改/b6d21686cb28256ff188bd1ee5d2bc36.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage1/data/default/刺客信条：大革命_（英）奥利弗·波登/b0c85037f863de92aa31c58c7aeeee02.json" beforeDir="false" afterPath="$PROJECT_DIR$/storage1/data/default/刺客信条：大革命_（英）奥利弗·波登/b0c85037f863de92aa31c58c7aeeee02.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage1/data/default/刺客信条：奥德赛_（英）戈登·多尔蒂/0787bc503a3e5c7382503922c445ee6b.json" beforeDir="false" afterPath="$PROJECT_DIR$/storage1/data/default/刺客信条：奥德赛_（英）戈登·多尔蒂/0787bc503a3e5c7382503922c445ee6b.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage1/data/default/刺客信条：底层世界_（英）奥利弗·波登/f77bcbef70dee9934bd5bbea5e5bce58.json" beforeDir="false" afterPath="$PROJECT_DIR$/storage1/data/default/刺客信条：底层世界_（英）奥利弗·波登/f77bcbef70dee9934bd5bbea5e5bce58.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage1/data/default/刺客信条：文艺复兴_（英）奥利弗·波登/cac158063b3cc1c242dd540cd320ddac.json" beforeDir="false" afterPath="$PROJECT_DIR$/storage1/data/default/刺客信条：文艺复兴_（英）奥利弗·波登/cac158063b3cc1c242dd540cd320ddac.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage1/data/default/刺客信条：黑旗_（英）奥利弗·波登/faea54c7f500dff9b5946f3f436ff17c.json" beforeDir="false" afterPath="$PROJECT_DIR$/storage1/data/default/刺客信条：黑旗_（英）奥利弗·波登/faea54c7f500dff9b5946f3f436ff17c.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage1/data/default/变身萝莉又怎样？我依旧超强！_红月小生/094465d17cfefe5b305ecf127f36b5f0.json" beforeDir="false" afterPath="$PROJECT_DIR$/storage1/data/default/变身萝莉又怎样？我依旧超强！_红月小生/094465d17cfefe5b305ecf127f36b5f0.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage1/data/default/女神校花被感染，竟是死亡女神？_快乐的小鸽子/7de9ff9f8f53a2fed2d11f158bcdd3e0.json" beforeDir="false" afterPath="$PROJECT_DIR$/storage1/data/default/女神校花被感染，竟是死亡女神？_快乐的小鸽子/7de9ff9f8f53a2fed2d11f158bcdd3e0.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage1/data/default/惊悚游戏：求您干点人事_大鲸鱼吹泡泡/c29476cf06bce9230369a1f70c898f74.json" beforeDir="false" afterPath="$PROJECT_DIR$/storage1/data/default/惊悚游戏：求您干点人事_大鲸鱼吹泡泡/c29476cf06bce9230369a1f70c898f74.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage1/data/default/惊！游戏官方又给我开后门_遛不了狗/f5f648c49d082caf08ed1644c68cbfac.json" beforeDir="false" afterPath="$PROJECT_DIR$/storage1/data/default/惊！游戏官方又给我开后门_遛不了狗/f5f648c49d082caf08ed1644c68cbfac.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage1/data/default/我一个史莱姆吊打巨龙很合理吧？_三风11/b9b5cf9407b6ab227d9c0ef1fb4192bc.json" beforeDir="false" afterPath="$PROJECT_DIR$/storage1/data/default/我一个史莱姆吊打巨龙很合理吧？_三风11/b9b5cf9407b6ab227d9c0ef1fb4192bc.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage1/data/default/无限流：在惊悚游戏当NPC挣钱_随笔涂鸦/acac1614f2ecf99d43732ab820d0be8c.json" beforeDir="false" afterPath="$PROJECT_DIR$/storage1/data/default/无限流：在惊悚游戏当NPC挣钱_随笔涂鸦/acac1614f2ecf99d43732ab820d0be8c.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage1/data/default/末世萝莉，开局斩杀室友_应府少爷/080ddb7afa3461828ff660e778ec8e60.json" beforeDir="false" afterPath="$PROJECT_DIR$/storage1/data/default/末世萝莉，开局斩杀室友_应府少爷/080ddb7afa3461828ff660e778ec8e60.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage1/data/default/规则怪谈：我，恐怖里的最终反派_秋风入梦/20b6cce6c308b3a100b247a5e9943b82.json" beforeDir="false" afterPath="$PROJECT_DIR$/storage1/data/default/规则怪谈：我，恐怖里的最终反派_秋风入梦/20b6cce6c308b3a100b247a5e9943b82.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage1/data/default/诡异药剂师：我的病人皆为恐怖_一条咸鱼c/11d711e885bd98649558144a2975ef64.json" beforeDir="false" afterPath="$PROJECT_DIR$/storage1/data/default/诡异药剂师：我的病人皆为恐怖_一条咸鱼c/11d711e885bd98649558144a2975ef64.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

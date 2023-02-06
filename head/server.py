@@ -237,3 +237,10 @@ def mode_change(modeid):
 @app.route("/aes/<path:p>")
 def encode(p):
     return str(aes_encode(p))
+
+@app.route("/download/")
+def download_all():
+    main_page = res.get(url + "getBookshelf").json()
+    for i in main_page["data"]:
+        res.get(url+f'cacheBookSSE?url={quote(i["bookUrl"])}&refresh=0')
+    return "ok"
