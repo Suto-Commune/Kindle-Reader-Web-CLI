@@ -69,7 +69,9 @@
 			.bookcard-text{
 				border:3px solid rgb(255, 255, 255);
 			}
-
+			.jiange{
+				border:3px solid white;
+			}
 		</style>
 	</head>
 	<body>
@@ -81,7 +83,7 @@
 		<div class="divvvv">
 		
 		{%for i in main_page['data'] %}
-			<div onclick="window.location.href='/bookshelf/{{ i['groupId'] }}';">
+			<div class="jiange" onclick="window.location.href='/bookshelf/{{ i['groupId'] }}';">
 				<div class="bookcard">
 					<div class="bookcard-text">
 					<a class="jz bookcard-text-c">{{ i['groupName'] }}</a>
