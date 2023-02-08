@@ -10,6 +10,7 @@ from head.aes import aes_encode
 
 import requests as res
 import re
+import json
 
 
 # 解析Book_url
@@ -38,7 +39,7 @@ def index():
     main_page = res.get(url + "getBookGroups").json()
     main_page["data"].pop(1)
     main_page["data"].pop(1)
-    return temp("groups.html", main_page=main_page)
+    return temp("book_groups.html", main_page=main_page)
 
 
 @app.route("/bookshelf/")
@@ -65,7 +66,7 @@ def bookshelf(group="-1"):
         for got_book_info in main_page['data']:
             got_book_info["groups"] = got_book_info[
                 "coverUrl"] if "coverUrl" in got_book_info else '/assets/img/noCover.jpeg'
-        return temp("bookshelf.html", main_page=main_page, group_name=group_name)
+        return temp("bookshelf_category.html", main_page=main_page, group_name=group_name)
     if group == "-4":
         return '<meta http-equiv="refresh" content="0;url=/bookshelf/0">'
     else:
@@ -77,7 +78,7 @@ def bookshelf(group="-1"):
         for got_book_info in main_page['data']:
             got_book_info["groups"] = got_book_info[
                 "coverUrl"] if "coverUrl" in got_book_info else '/assets/img/noCover.jpeg'
-        return temp("bookshelf.html", main_page=main_page, group_name=group_name)
+        return temp("bookshelf_category.html", main_page=main_page, group_name=group_name)
 
 
 @app.route('/book/<path:p>')
@@ -103,7 +104,7 @@ def book_info(p):
 
     cover = got_book_info["coverUrl"] if "coverUrl" in got_book_info else '/assets/img/noCover.jpeg'
     intro = got_book_info["intro"] if 'intro' in got_book_info else '这本书没有介绍哦'
-    return temp("bookinfo.html",
+    return temp("book_information.html",
                 br=br, cover=cover,
                 name=got_book_info["name"],
                 author=got_book_info["author"],
@@ -179,7 +180,7 @@ def book_read(index_, save, p):
     else:
         change_page = ""
 
-    return temp("readbook.html", chaptername=chapter_name,
+    return temp("bookviewer_reading.html", chaptername=chapter_name,
                 br=br, text=text,
                 next_zhang=next_chapter, last_zhang=last_chapter, bookurl=b_url, change_page=change_page)
 
@@ -223,7 +224,7 @@ def book_chapter(page, p):
 
     link = f'/book/{b_url}'
 
-    return temp("chapter.html", name=book_info_["name"], page=page, chapter=read_chapter, book_url=b_url,
+    return temp("bookviewer_chapters.html", name=book_info_["name"], page=page, chapter=read_chapter, book_url=b_url,
                 lastpage=last_page, nextpage=next_page, link=link)
 
 
@@ -238,9 +239,77 @@ def mode_change(modeid):
 def encode(p):
     return str(aes_encode(p))
 
+
 @app.route("/download/")
 def download_all():
     main_page = res.get(url + "getBookshelf").json()
     for i in main_page["data"]:
-        res.get(url+f'cacheBookSSE?url={quote(i["bookUrl"])}&refresh=0')
+        res.get(url + f'cacheBookSSE?url={quote(i["bookUrl"])}&refresh=0')
+    return "ok"
+
+
+def get_BookSources_list():
+    get_BookSources = res.get(url + "getBookSources").json()["data"]
+    bookSourceGroup = []
+    j = 0
+    for i in get_BookSources:
+        if "," in i["bookSourceGroup"]:
+            group = str(i["bookSourceGroup"]).split(",")
+            for j1 in group:
+                bookSourceGroup.append(j1)
+                j = j + 1
+                continue
+        else:
+            bookSourceGroup.append(i["bookSourceGroup"])
+            j = j + 1
+    new_bookSourceGroup = list(set(bookSourceGroup))
+    new_bookSourceGroup.sort(key=bookSourceGroup.index)
+    bookSourceGroup = new_bookSourceGroup
+    del new_bookSourceGroup
+    new_bookSourceGroup = []
+    for j in range(0, len(bookSourceGroup)):
+        new_bookSourceGroup.append((bookSourceGroup[j], f"./id/{str(j)}"))
+    bookSourceGroup = new_bookSourceGroup
+    del new_bookSourceGroup
+    return bookSourceGroup
+
+
+@app.route("/sources/")
+def sources_list():
+    bookSourceGroup = get_BookSources_list()
+    return temp("getBookSources_group.html", bookSourceGroup=bookSourceGroup)
+
+
+@app.route("/sources/id/<int:group_id>")
+def sources_id(group_id):
+    bookSourceGroup = get_BookSources_list()
+    bookSourceGroup = bookSourceGroup[group_id][0]
+    s_list = []
+    bookSource = res.get(url + "getBookSources").json()["data"]
+    for i in bookSource:
+        if str(i["bookSourceGroup"]) == bookSourceGroup:
+            s_list.append((i["bookSourceName"], i["bookSourceGroup"], f'/sources/get/{i["bookSourceUrl"]}'))
+    return temp("getBookSources_id.html", bookSourceGroup=bookSourceGroup, s_list=s_list)
+
+
+@app.route("/sources/get/<path:p>")
+def sources_get(p):
+    sources_get_url = get_book_url("/sources/get/")
+    bookSource = res.get(url + "getBookSources").json()["data"]
+
+    sources_exploreUrl = str()
+    for i in bookSource:
+        if i["bookSourceUrl"] == sources_get_url:
+            sources_exploreUrl = i["exploreUrl"]
+            break
+    regex = r'"(layout_flexGrow|layout_flexBasisPercent)"'
+    test_str=sources_exploreUrl
+    matches = re.search(regex, test_str)
+    if matches:
+        ...
+    else:
+        sources_exploreUrl = sources_exploreUrl.replace("layout_flexGrow", '"layout_flexGrow"')
+        sources_exploreUrl = sources_exploreUrl.replace("layout_flexBasisPercent", '"layout_flexBasisPercent"')
+    sources_exploreUrl = eval(sources_exploreUrl)
+    print(sources_exploreUrl, type(sources_exploreUrl))
     return "ok"
