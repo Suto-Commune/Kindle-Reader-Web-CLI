@@ -15,11 +15,11 @@ from head.backup import backup
 # 创建reader线程
 def reader_thread():
     try:
-        subprocess.check_output(['java', '-jar', 'reader-pro-2.7.3.jar', '>nul'])
+        subprocess.check_output(['java', '-jar', 'reader-pro.jar', '>nul'])
     except:
         ...
     try:
-        subprocess.check_output(['java', '-jar', 'reader-pro-2.7.3.jar'])
+        subprocess.check_output(['java', '-jar', 'reader-pro.jar'])
     except:
         logging.getLogger(__name__).critical('Unable to load thread:"reader",please check file or java integrity.')
         sys.exit()
