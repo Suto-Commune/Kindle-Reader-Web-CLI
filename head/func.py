@@ -32,10 +32,9 @@ def ban_windows_window_close_button():
 
 def storage_clone():
     if CLONE_MODE and not os.path.exists("storage"):
-        os.mkdir("storage")
         origin = f"https://{aes_decode(github_token)}@github.com/{github_name}/{github_repo}.git"
         print("[INFO]\tCLONE_MODE Enable.Start Clone...")
-        os.system(f"cd storage & git clone {origin} .")
+        os.system(f"git clone {origin} storage")
     elif not CLONE_MODE:
         print("[INFO]\tCLONE_MODE Disable.")
 
