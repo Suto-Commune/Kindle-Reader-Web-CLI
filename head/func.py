@@ -5,6 +5,7 @@ import zipfile
 import os
 from head.thread import *
 from head.aes import aes_decode
+from head.config import *
 
 
 # 创建Nocover.png
