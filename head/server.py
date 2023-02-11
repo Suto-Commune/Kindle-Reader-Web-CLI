@@ -317,6 +317,46 @@ def sources_get(p):
     return temp("getBookSources_get.html", sources_exploreUrl=sources_exploreUrl, name=name)
 
 
+@app.route("/sources/login/<path:p>")
+def sources_login(p):
+    book_url = get_book_url("/sources/login/")
+    ex_list = book_url.split("/")
+    exploreBook_URL = f"{ex_list[0]}//{ex_list[2]}"
+    json1 = {
+        "bookSourceUrl": exploreBook_URL
+    }
+    login_url = res.post(url + "getBookSource", json=json1).json()["data"]["loginUrl"]
+    return f"<a href='{login_url}'>点击此链接进行登录</a>；加载<a href='https://github.com/Suto-Commune/get-cookie'>插件</a" \
+           f">后复制cookie转跳至<a href='/sources/cookie/{exploreBook_URL}'>这</a> "
+
+
+@app.route("/sources/cookie/<path:p>")
+def sources_cookie(p):
+    book_url = get_book_url("/sources/cookie/")
+    ex_list = book_url.split("/")
+    exploreBook_URL = f"{ex_list[0]}//{ex_list[2]}"
+    return temp("cookie.html", url=exploreBook_URL)
+
+
+@app.route("/sources/cookieadd/")
+def add_cookie():
+    s_url = req.args.get("url")
+    s_cookie = req.args.get("cookie")
+    ex_list = s_url.split("/")
+    exploreBook_URL = f"{ex_list[0]}//{ex_list[2]}"
+    json1 = {
+        "bookSourceUrl": exploreBook_URL
+    }
+    login_url = res.post(url + "getBookSource", json=json1).json()["data"]
+    header = str(login_url["header"])[0:len(login_url["header"])-1]
+    print(header)
+    header = header + '\n' + f'"Cookie": "{s_cookie}"' + "}"
+    login1 = login_url
+    login1["header"] = header
+    res.post(url + "saveBookSource", json=login1)
+    return "ok"
+
+
 @app.route("/sources/list/<path:p>")
 def sources_list(p):
     ruleFindUrl = get_book_url("/sources/list/")
