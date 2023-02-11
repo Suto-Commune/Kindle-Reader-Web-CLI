@@ -385,12 +385,13 @@ def choose_book_groups(p):
     return temp("save_book_choose_book_groups.html", groups=groups, book_url=book_url)
 
 
-@app.route("/save/group_id/<int:group_id>/<path:p>")
+@app.route("/save/group_id/<string:group_id>/<path:p>")
 def save_book(p, group_id):
+    group_id=int(group_id)
     book_url = get_book_url(f"/save/group_id/{group_id}/")
     origin_list = book_url.split("/")
     origin = f"{origin_list[0]}//{origin_list[2]}"
-    if group_id < 0:
+    if int(group_id) < 0:
         group_id = 0
     json1 = {
         "origin": origin,
