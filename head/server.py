@@ -275,7 +275,7 @@ def get_BookSources_list():
 
 
 @app.route("/sources/")
-def sources_list():
+def sources_index():
     bookSourceGroup = get_BookSources_list()
     return temp("getBookSources_group.html", bookSourceGroup=bookSourceGroup)
 
@@ -297,13 +297,15 @@ def sources_get(p):
     sources_get_url = get_book_url("/sources/get/")
     bookSource = res.get(url + "getBookSources").json()["data"]
 
+    name = str()
     sources_exploreUrl = str()
     for i in bookSource:
         if i["bookSourceUrl"] == sources_get_url:
+            name = i["bookSourceName"]
             sources_exploreUrl = i["exploreUrl"]
             break
     regex = r'"(layout_flexGrow|layout_flexBasisPercent)"'
-    test_str=sources_exploreUrl
+    test_str = sources_exploreUrl
     matches = re.search(regex, test_str)
     if matches:
         ...
@@ -311,5 +313,49 @@ def sources_get(p):
         sources_exploreUrl = sources_exploreUrl.replace("layout_flexGrow", '"layout_flexGrow"')
         sources_exploreUrl = sources_exploreUrl.replace("layout_flexBasisPercent", '"layout_flexBasisPercent"')
     sources_exploreUrl = eval(sources_exploreUrl)
-    print(sources_exploreUrl, type(sources_exploreUrl))
-    return "ok"
+    return temp("getBookSources_get.html", sources_exploreUrl=sources_exploreUrl, name=name)
+
+
+@app.route("/sources/list/<path:p>")
+def sources_list(p):
+    ruleFindUrl = get_book_url("/sources/list/")
+
+    ex_list = ruleFindUrl.split("/")
+    print(ex_list)
+    exploreBook_URL = f"{ex_list[0]}//{ex_list[2]}"
+    del ex_list
+    json1 = {
+        'bookSourceUrl': exploreBook_URL,
+        "page": 1,
+        "ruleFindUrl": ruleFindUrl
+    }
+    explore = res.post(url + "exploreBook", json=json1).json()["data"]
+    return temp("getBookSources_list.html", explore=explore)
+
+
+@app.route("/save/group/<path:p>")
+def choose_book_groups(p):
+    book_url = get_book_url("/save/group/")
+    main_page = res.get(url + "getBookGroups").json()
+    main_page["data"].pop(1)
+    main_page["data"].pop(1)
+    groups = main_page["data"]
+    del main_page
+    return temp("save_book_choose_book_groups.html", groups=groups, book_url=book_url)
+
+
+@app.route("/save/group_id/<int:group_id>/<path:p>")
+def save_book(p, group_id):
+    book_url = get_book_url(f"/save/group_id/{group_id}/")
+    origin_list = book_url.split("/")
+    origin = f"{origin_list[0]}//{origin_list[2]}"
+    if group_id < 0:
+        group_id = 0
+    json1 = {
+        "origin": origin,
+        "bookUrl": book_url,
+        "group": int(group_id)
+    }
+    save=res.post(url+"saveBook",json=json1)
+    print(f'[INFO]\tSave book "{book_url}" to group {group_id}.Code: {save.status_code}')
+    return f'<meta http-equiv="refresh" content="0;url=/book/{book_url}">'

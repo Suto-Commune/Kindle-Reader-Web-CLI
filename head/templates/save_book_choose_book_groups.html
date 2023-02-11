@@ -69,21 +69,14 @@
 	</head>
 	<body>
 		<div class="jz">
-			<h1>书架</h1>
+			<h1>选择要保存到的分组</h1>
 		</div>
 		<div class="wb"></div>
 		
 		<div class="divvvv">
-			<div class="jiange" onclick="window.location.href='/sources/';">
-				<div class="bookcard">
-					<div class="bookcard-text">
-					<a class="jz bookcard-text-c">探索书源</a>
-					</div>
-				</div>		
-				<div class="wb"></div>	
-			</div>		
-		{%for i in main_page['data'] %}
-			<div class="jiange" onclick="window.location.href='/bookshelf/{{ i['groupId'] }}';">
+		
+		{%for i in groups %}
+			<div class="jiange" onclick="window.location.href='/save/group_id/{{ i['groupId'] }}/{{ book_url }}';">
 				<div class="bookcard">
 					<div class="bookcard-text">
 					<a class="jz bookcard-text-c">{{ i['groupName'] }}</a>

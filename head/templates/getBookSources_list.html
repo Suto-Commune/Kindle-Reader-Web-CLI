@@ -1,13 +1,12 @@
 <html>
 	<head>
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<title>Kindle-Reader-Web-CLI</title>
+		<title>List</title>
 		<style>
 			.jz {
 				text-align:center
 			}
 			.divvvv {
-				height:200;
 				width:auto;
 				text-align:center;
 				display:flex;
@@ -36,7 +35,7 @@
 				color:#f2f2f2;
 				padding:10px 30px 10px 
 			30px;
-				font-size:16rem;
+				font-size:16px;
 				font-family:Arial,Helvetica,Verdana,sans-serif;
 				font-weight:bold;
 				border-radius:3px;
@@ -54,40 +53,35 @@
 						dotted#a2a9b6
 			}
 			.bookcard{
-				border:3px solid rgb(95, 81, 81);
+				border:3px solid rgb(255, 255, 255);
 				border-radius:5px;
 				box-shadow: 0 0 5px rgba(0, 0, 0, 0.027);
 			}
-
+			.bookcard-img{
+				border:3px solid #ccc;
+				width:150px;
+				height:200px;
+				border-radius: 5px;
+				margin-top: 2px;
+				margin-left: 1px;
+			
+			}
 			.bookcard-text{
-				border:3px solid rgb(255, 255, 255);
+				margin-top: 15px;
 			}
-			.jiange{
-				border:3px solid white;
-			}
+
 		</style>
 	</head>
 	<body>
-		<div class="jz">
-			<h1>书架</h1>
-		</div>
-		<div class="wb"></div>
-		
 		<div class="divvvv">
-			<div class="jiange" onclick="window.location.href='/sources/';">
-				<div class="bookcard">
-					<div class="bookcard-text">
-					<a class="jz bookcard-text-c">探索书源</a>
-					</div>
-				</div>		
-				<div class="wb"></div>	
-			</div>		
-		{%for i in main_page['data'] %}
-			<div class="jiange" onclick="window.location.href='/bookshelf/{{ i['groupId'] }}';">
-				<div class="bookcard">
-					<div class="bookcard-text">
-					<a class="jz bookcard-text-c">{{ i['groupName'] }}</a>
-					</div>
+		
+		{%for i in explore %}
+			<div onclick="window.location.href='/save/group/{{ i['bookUrl'] }}';">
+				<div class="bookcard divvvv" style="border:3px solid #ccc;width: 500px;">
+					<img class="bookcard-img" height="150" src="{{ i['coverUrl'] }}">
+					<a class="jz bookcard-text-c" style="width: 100%;">{{ i['name'] }}</a>
+					<a class="jz bookcard-text-c" style="width: 100%;">{{ i['author'] }}</a>
+					<a class="jz bookcard-text-c" style="width: 100%;">{{ i['kind'] }}</a>
 				</div>		
 				<div class="wb"></div>	
 			</div>

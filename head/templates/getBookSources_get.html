@@ -1,0 +1,51 @@
+<html>
+	<head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>{{ name }}</title>
+		<style>
+			.jz {
+				text-align:center
+			}
+			.divvvv {
+				height:200;
+				width:auto;
+				text-align:center;
+				display:flex;
+				flex-direction:row;
+				flex-wrap:wrap;
+				justify-content:space-evenly;
+				align-items:center
+			}
+			.wb {
+				display:block;
+				color:antiquewhite;
+				height:20;
+				width:auto
+			}
+			.xu-light {
+				border:0;
+				border-top:2px dotted#a2a9b6
+			}
+			.bookcard-text{
+				border-radius: 50px;
+				color: white;
+				background: #2a2c27;
+				font-size: 25;
+			}
+			.jiange{
+				border:3px solid white;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="divvvv" style="width: 87%;margin: auto;">
+		{%for i in sources_exploreUrl %}
+			<div class="jiange" onclick="window.location.href='/sources/list/{{ i["url"] }}';" style='margin-bottom: 20px;width: calc( {{ i["style"]["layout_flexBasisPercent"] }} *110%);'>
+					<div class="bookcard-text">
+						<a class="jz bookcard-text">{{ i["title"] }}</a>
+					</div>	
+			</div>
+		{% endfor %}
+		</div>
+	</body>
+</html>
