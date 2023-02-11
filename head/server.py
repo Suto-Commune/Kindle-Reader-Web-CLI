@@ -11,6 +11,7 @@ from head.aes import aes_encode
 import requests as res
 import re
 import json
+import io
 
 
 # 解析Book_url
@@ -356,6 +357,39 @@ def save_book(p, group_id):
         "bookUrl": book_url,
         "group": int(group_id)
     }
-    save=res.post(url+"saveBook",json=json1)
+    save = res.post(url + "saveBook", json=json1)
     print(f'[INFO]\tSave book "{book_url}" to group {group_id}.Code: {save.status_code}')
     return f'<meta http-equiv="refresh" content="0;url=/book/{book_url}">'
+
+
+@app.route("/search/")
+def search():
+    return temp("multi_search.html")
+
+
+@app.route("/multi_search/key/")
+def multi_search_key():
+    key = req.args.get("key")
+    file = res.get(url + f"searchBookMultiSSE?key={key}").content.decode("UTF-8")
+    file = file.splitlines()
+    while "" in file:
+        file.remove("")
+    file1 = []
+    for i in file:
+        if "event" not in i and "bookUrl" in i:
+            file1.append(i.replace("data: ", ""))
+    file = file1
+    del file1
+
+    file1 = []
+    for i in file:
+        file1.append(json.loads(i))
+    file = file1
+    del file1
+
+    data = []
+    for i in file:
+        for j in i["data"]:
+            data.append(j)
+
+    return temp("multi_search_book.html", data=data)

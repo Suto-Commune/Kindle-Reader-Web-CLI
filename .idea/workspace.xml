@@ -5,10 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7e2a297a-952b-48f1-b4bc-7c84c4401b35" name="变更" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/head/server.py" beforeDir="false" afterPath="$PROJECT_DIR$/head/server.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nginx/logs/access.log" beforeDir="false" afterPath="$PROJECT_DIR$/nginx/logs/access.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nginx/logs/nginx.pid" beforeDir="false" afterPath="$PROJECT_DIR$/nginx/logs/nginx.pid" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/cache/invalidBookSourceCache/default/-1005409012" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/cache/invalidBookSourceCache/default/-991083983" beforeDir="false" afterPath="$PROJECT_DIR$/storage/cache/invalidBookSourceCache/default/-991083983" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/cache/invalidBookSourceCache/default/1498444979" beforeDir="false" afterPath="$PROJECT_DIR$/storage/cache/invalidBookSourceCache/default/1498444979" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/data/default/bookshelf.json" beforeDir="false" afterPath="$PROJECT_DIR$/storage/data/default/bookshelf.json" afterDir="false" />
@@ -16,8 +17,8 @@
       <change beforePath="$PROJECT_DIR$/storage/data/default/不是吧，我变成猫娘有这么可爱？_星星不是心心/550cf5b92f1102f852350954810d32a2.json" beforeDir="false" afterPath="$PROJECT_DIR$/storage/data/default/不是吧，我变成猫娘有这么可爱？_星星不是心心/550cf5b92f1102f852350954810d32a2.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/data/default/丧钟为谁而鸣_（美）海明威/11708ae0cefa5829911035dd73dcf41b.json" beforeDir="false" afterPath="$PROJECT_DIR$/storage/data/default/丧钟为谁而鸣_（美）海明威/11708ae0cefa5829911035dd73dcf41b.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/data/default/从一款温馨游戏开始_予作/e6fa316e3d3ba7ae18062dcc46a09ebb.json" beforeDir="false" afterPath="$PROJECT_DIR$/storage/data/default/从一款温馨游戏开始_予作/e6fa316e3d3ba7ae18062dcc46a09ebb.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/data/default/全民地府突围：只有我有安全箱_宿命一狙/4ae0f5f05bb3e707f3910048f38c6ab1.json" beforeDir="false" afterPath="$PROJECT_DIR$/storage/data/default/全民地府突围：只有我有安全箱_宿命一狙/4ae0f5f05bb3e707f3910048f38c6ab1.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/data/default/全民地府突围：只有我有安全箱_宿命一狙/4ae0f5f05bb3e707f3910048f38c6ab1/0.txt" beforeDir="false" afterPath="$PROJECT_DIR$/storage/data/default/全民地府突围：只有我有安全箱_宿命一狙/4ae0f5f05bb3e707f3910048f38c6ab1/0.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/data/default/全民地府突围：只有我有安全箱_宿命一狙/4ae0f5f05bb3e707f3910048f38c6ab1.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/data/default/全民地府突围：只有我有安全箱_宿命一狙/4ae0f5f05bb3e707f3910048f38c6ab1/0.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/data/default/全民地府突围：只有我有安全箱_宿命一狙/4ae0f5f05bb3e707f3910048f38c6ab1/1.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/data/default/全民地府突围：只有我有安全箱_宿命一狙/4ae0f5f05bb3e707f3910048f38c6ab1/10.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/data/default/全民地府突围：只有我有安全箱_宿命一狙/4ae0f5f05bb3e707f3910048f38c6ab1/100.txt" beforeDir="false" />
@@ -491,9 +492,10 @@
       <change beforePath="$PROJECT_DIR$/storage/data/default/全民地府突围：只有我有安全箱_宿命一狙/4ae0f5f05bb3e707f3910048f38c6ab1/97.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/data/default/全民地府突围：只有我有安全箱_宿命一狙/4ae0f5f05bb3e707f3910048f38c6ab1/98.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/data/default/全民地府突围：只有我有安全箱_宿命一狙/4ae0f5f05bb3e707f3910048f38c6ab1/99.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/data/default/全民地府突围：只有我有安全箱_宿命一狙/bookSource.json" beforeDir="false" afterPath="$PROJECT_DIR$/storage/data/default/全民地府突围：只有我有安全箱_宿命一狙/bookSource.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/data/default/全民地府突围：只有我有安全箱_宿命一狙/bookSource.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/data/default/全球惊悚_无畏象/3731cd5db3be07ac32800db21843d489.json" beforeDir="false" afterPath="$PROJECT_DIR$/storage/data/default/全球惊悚_无畏象/3731cd5db3be07ac32800db21843d489.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/data/default/全球惊悚：我在诡秘世界玩嗨了_道听途说的他/c1e348edb552a117e43e9a15b638ba5e.json" beforeDir="false" afterPath="$PROJECT_DIR$/storage/data/default/全球惊悚：我在诡秘世界玩嗨了_道听途说的他/c1e348edb552a117e43e9a15b638ba5e.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/data/default/冰与火之歌：权力的游戏（图像小说 1-4）_（美）乔治·R.R.马丁，屈畅，王晔，陈亦萱，黄嘉铭，（美）汤米·帕特森 绘，（美）丹尼尔·亚伯拉罕 改/b6d21686cb28256ff188bd1ee5d2bc36.json" beforeDir="false" afterPath="$PROJECT_DIR$/storage/data/default/冰与火之歌：权力的游戏（图像小说 1-4）_（美）乔治·R.R.马丁，屈畅，王晔，陈亦萱，黄嘉铭，（美）汤米·帕特森 绘，（美）丹尼尔·亚伯拉罕 改/b6d21686cb28256ff188bd1ee5d2bc36.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/data/default/冰海求生，我跟万物唠嗑搞情报_拒绝胡萝卜/d62065eb25f0d3a80c942fc606dfd87e.json" beforeDir="false" afterPath="$PROJECT_DIR$/storage/data/default/冰海求生，我跟万物唠嗑搞情报_拒绝胡萝卜/d62065eb25f0d3a80c942fc606dfd87e.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/data/default/刘慈欣短篇科幻小说合集（二十八册）_刘慈欣/ee82600b9e9405fea5706fc684ba4afd.json" beforeDir="false" afterPath="$PROJECT_DIR$/storage/data/default/刘慈欣短篇科幻小说合集（二十八册）_刘慈欣/ee82600b9e9405fea5706fc684ba4afd.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/data/default/刺客信条：大革命_（英）奥利弗·波登/b0c85037f863de92aa31c58c7aeeee02.json" beforeDir="false" afterPath="$PROJECT_DIR$/storage/data/default/刺客信条：大革命_（英）奥利弗·波登/b0c85037f863de92aa31c58c7aeeee02.json" afterDir="false" />
@@ -504,6 +506,7 @@
       <change beforePath="$PROJECT_DIR$/storage/data/default/变身天才美少女，但是想安静生活_吉他英雄/caeea7d3695315faf67b01397503878e.json" beforeDir="false" afterPath="$PROJECT_DIR$/storage/data/default/变身天才美少女，但是想安静生活_吉他英雄/caeea7d3695315faf67b01397503878e.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/data/default/变身萝莉又怎样？我依旧超强！_红月小生/094465d17cfefe5b305ecf127f36b5f0.json" beforeDir="false" afterPath="$PROJECT_DIR$/storage/data/default/变身萝莉又怎样？我依旧超强！_红月小生/094465d17cfefe5b305ecf127f36b5f0.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/data/default/在惊悚游戏里养纸片人_三妖/864542c41fc729f7ca27f093f8ae8be0.json" beforeDir="false" afterPath="$PROJECT_DIR$/storage/data/default/在惊悚游戏里养纸片人_三妖/864542c41fc729f7ca27f093f8ae8be0.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/data/default/地铁三部曲（全三册）_（俄罗斯）德米特里·格鲁霍夫斯基；陈恒哲，李春雨 译/72d510c9b0a1461f47427719ae7c5757.json" beforeDir="false" afterPath="$PROJECT_DIR$/storage/data/default/地铁三部曲（全三册）_（俄罗斯）德米特里·格鲁霍夫斯基；陈恒哲，李春雨 译/72d510c9b0a1461f47427719ae7c5757.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/data/default/女神校花被感染，竟是死亡女神？_快乐的小鸽子/7de9ff9f8f53a2fed2d11f158bcdd3e0.json" beforeDir="false" afterPath="$PROJECT_DIR$/storage/data/default/女神校花被感染，竟是死亡女神？_快乐的小鸽子/7de9ff9f8f53a2fed2d11f158bcdd3e0.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/data/default/当我在规则怪谈里开始叛逆_奈何情深/92e047effbe59697a61b92f61bcfdf3a.json" beforeDir="false" afterPath="$PROJECT_DIR$/storage/data/default/当我在规则怪谈里开始叛逆_奈何情深/92e047effbe59697a61b92f61bcfdf3a.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/data/default/恐怖真人秀：全球观众看我宠娇了大佬_夏炎炎/31bd02003f64fb4743066ec98689c32c.json" beforeDir="false" afterPath="$PROJECT_DIR$/storage/data/default/恐怖真人秀：全球观众看我宠娇了大佬_夏炎炎/31bd02003f64fb4743066ec98689c32c.json" afterDir="false" />
@@ -530,9 +533,12 @@
       <change beforePath="$PROJECT_DIR$/storage/data/default/睡过头后，校园丧尸爆发_水点饭/7424415d4da15ee873bd811decee76fd.json" beforeDir="false" afterPath="$PROJECT_DIR$/storage/data/default/睡过头后，校园丧尸爆发_水点饭/7424415d4da15ee873bd811decee76fd.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/data/default/知更鸟女孩（全六册）_（美）查克·温迪格/9f52f79caf78269f6ae2c88a8ffb3020.json" beforeDir="false" afterPath="$PROJECT_DIR$/storage/data/default/知更鸟女孩（全六册）_（美）查克·温迪格/9f52f79caf78269f6ae2c88a8ffb3020.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/data/default/第九特区_伪戒/9771ae8543445835fb649c6915425769.json" beforeDir="false" afterPath="$PROJECT_DIR$/storage/data/default/第九特区_伪戒/9771ae8543445835fb649c6915425769.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/data/default/罪与罚_[俄]陀思妥耶夫斯基/cffe02155baa5dcefdcf7c525f0cf194.json" beforeDir="false" afterPath="$PROJECT_DIR$/storage/data/default/罪与罚_[俄]陀思妥耶夫斯基/cffe02155baa5dcefdcf7c525f0cf194.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/data/default/规则怪谈：我，恐怖里的最终反派_秋风入梦/20b6cce6c308b3a100b247a5e9943b82.json" beforeDir="false" afterPath="$PROJECT_DIR$/storage/data/default/规则怪谈：我，恐怖里的最终反派_秋风入梦/20b6cce6c308b3a100b247a5e9943b82.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/data/default/解密_麦家/12d749d5e1ad0c5bd36eaab903e4a51f.json" beforeDir="false" afterPath="$PROJECT_DIR$/storage/data/default/解密_麦家/12d749d5e1ad0c5bd36eaab903e4a51f.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/data/default/诡异直播：我能无限推演_石头巨怪/3425c0f4bb5cbf37738a33e43c8a283a.json" beforeDir="false" afterPath="$PROJECT_DIR$/storage/data/default/诡异直播：我能无限推演_石头巨怪/3425c0f4bb5cbf37738a33e43c8a283a.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/data/default/诡异药剂师：我的病人皆为恐怖_一条咸鱼c/11d711e885bd98649558144a2975ef64.json" beforeDir="false" afterPath="$PROJECT_DIR$/storage/data/default/诡异药剂师：我的病人皆为恐怖_一条咸鱼c/11d711e885bd98649558144a2975ef64.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/data/default/诺贝尔文学奖作品合集(套装共5册)_（法）阿尔贝·加缪;（法）安德烈·纪德;（美）尤金·奥尼尔;（德）鲁道尔夫·欧肯;（法）亨利·柏格森;刘霞 译/6282fa5e61efaac4ef2491bbfc8a125b.json" beforeDir="false" afterPath="$PROJECT_DIR$/storage/data/default/诺贝尔文学奖作品合集(套装共5册)_（法）阿尔贝·加缪;（法）安德烈·纪德;（美）尤金·奥尼尔;（德）鲁道尔夫·欧肯;（法）亨利·柏格森;刘霞 译/6282fa5e61efaac4ef2491bbfc8a125b.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/data/default/钢铁是怎样炼成的_奥斯特洛夫斯基/2c32ffbe8d2e68e1b212979afef729da.json" beforeDir="false" afterPath="$PROJECT_DIR$/storage/data/default/钢铁是怎样炼成的_奥斯特洛夫斯基/2c32ffbe8d2e68e1b212979afef729da.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/data/default/饥饿游戏（共3册）_苏珊•柯林斯/44b640beb05ff51a3a37ca7f9a8f88a4.json" beforeDir="false" afterPath="$PROJECT_DIR$/storage/data/default/饥饿游戏（共3册）_苏珊•柯林斯/44b640beb05ff51a3a37ca7f9a8f88a4.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/data/default/鲁迅文学全集（全七册）_鲁迅/884cdb909d3dc4bb6d930bb5790bff68.json" beforeDir="false" afterPath="$PROJECT_DIR$/storage/data/default/鲁迅文学全集（全七册）_鲁迅/884cdb909d3dc4bb6d930bb5790bff68.json" afterDir="false" />
