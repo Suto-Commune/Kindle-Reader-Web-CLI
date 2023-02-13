@@ -22,10 +22,13 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
+        name: rewritedockerfile
+        run: ls /tmp/buildkit-mount3643902256/
+      -
         name: Build and push
         uses: docker/build-push-action@v3
         with:
-          context: .
+          context: Dockerfile_arm64
           platforms: linux/arm64
           push: true
           tags: lolingnatsumi/kindle-reader-web-cli:arm64
