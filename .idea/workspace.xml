@@ -5,8 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7e2a297a-952b-48f1-b4bc-7c84c4401b35" name="变更" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/head/server.py" beforeDir="false" afterPath="$PROJECT_DIR$/head/server.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/cache/invalidBookSourceCache/default/-1005409012" beforeDir="false" afterPath="$PROJECT_DIR$/storage/cache/invalidBookSourceCache/default/-1005409012" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/cache/invalidBookSourceCache/default/-991083983" beforeDir="false" afterPath="$PROJECT_DIR$/storage/cache/invalidBookSourceCache/default/-991083983" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/cache/invalidBookSourceCache/default/1498444979" beforeDir="false" afterPath="$PROJECT_DIR$/storage/cache/invalidBookSourceCache/default/1498444979" afterDir="false" />
