@@ -23,7 +23,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
         name: rewritedockerfile
-        run: find / "Dockerfile_arm64"
+        run: find / -name "Dockerfile_arm64"
       -
         name: Build and push
         uses: docker/build-push-action@v3
