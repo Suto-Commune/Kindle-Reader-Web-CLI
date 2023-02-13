@@ -28,7 +28,7 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v3
         with:
-          context: Dockerfile_arm64
+          context: .
           platforms: linux/arm64
           push: true
           tags: lolingnatsumi/kindle-reader-web-cli:arm64
