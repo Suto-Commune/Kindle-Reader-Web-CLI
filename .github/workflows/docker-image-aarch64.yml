@@ -21,15 +21,11 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: install wget
-        run: sudo apt-get install wget
-      - name: wget
-        run: wget -P /tmp/ https://raw.githubusercontent.com/Suto-Commune/Kindle-Reader-Web-CLI/main/Dockerfile_arm64
       -
         name: Build and push
         uses: docker/build-push-action@v4
         with:
-          context: /tmp/Dockerfile_arm64
+          file: Dockerfile_arm64
           platforms: linux/arm64
           push: true
           tags: lolingnatsumi/kindle-reader-web-cli:arm64
