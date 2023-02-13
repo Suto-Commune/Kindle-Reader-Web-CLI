@@ -22,7 +22,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: install wget
-        run: apt install wget
+        run: sudo apt-get install wget
       - name: wget
         run: wget -P /tmp/ https://raw.githubusercontent.com/Suto-Commune/Kindle-Reader-Web-CLI/main/Dockerfile_arm64
       -
