@@ -23,12 +23,12 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
         name: rewritedockerfile
-        run: cat Dockerfile_arm64>Dockerfile
+        run: find / "Dockerfile_arm64"
       -
         name: Build and push
         uses: docker/build-push-action@v3
         with:
-          context: .
+          context: Dockerfile_arm64
           platforms: linux/arm64
           push: true
           tags: lolingnatsumi/kindle-reader-web-cli:arm64
