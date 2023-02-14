@@ -1,9 +1,6 @@
-name: ci
+name: aarch64_docker_builder
 
-on:
-  push:
-    branches:
-      - 'main'
+on: workflow_dispatch
 
 jobs:
   docker:
