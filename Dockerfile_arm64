@@ -5,7 +5,7 @@ COPY ./nginx/conf /etc/nginx/
 
 WORKDIR /reader
 
-RUN apk add git build-essential procps curl file git
+RUN apk add git libffi
 RUN wget https://github.com/adoptium/temurin19-binaries/releases/download/jdk-19.0.2%2B7/OpenJDK19U-jre_aarch64_linux_hotspot_19.0.2_7.tar.gz -O jre.tar.gz
 RUN tar -zxvf jre.tar.gz
 RUN rm jre.tar.gz
@@ -16,10 +16,6 @@ EXPOSE 1000
 EXPOSE 5000
 EXPOSE 8080
 COPY requirements.txt .
-RUN /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-RUN echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> $HOME/.bash_profile
-RUN eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-RUN brew install pkg-config libffi
 RUN chmod +x requirements.txt
 RUN pip install -r requirements.txt
 COPY . .
