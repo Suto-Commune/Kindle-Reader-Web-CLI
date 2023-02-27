@@ -122,7 +122,7 @@ def book_read(index_, save, p):
     # 拼接url
     # index和外部函数重名的,容易出bug,改成index_了
     b_url = get_book_url(f"/read/{save}/{index_}/")
-
+    url_path = b_url.replace(f"/read/{save}/{index_}/","")
     # 创建请求数据
     get_content_json = {
         "url": b_url,
@@ -136,17 +136,16 @@ def book_read(index_, save, p):
 
     # 发送请求
     text = dict(res.post(url + "getBookContent", json=get_content_json).json())
-    if "epub" in text["data"]:
-        text = str(text["data"]).replace("/book-assets/", "")
-        path1 = text
-        with open(f"storage/data/{text}", 'r', encoding="UTF-8") as f:
-            text1 = f.read()
-            f.close()
-        # 去除累赘
-        path2 = path1.split('/')
-        # 替换绝对路径
-        path1 = path1.replace(f"/{path2[-1]}", "").replace(f"/{path2[-2]}", "").replace(f"/{path2[-2]}", "")
-        text = text1.replace("..", f"/data/{path1}")
+    if "book-asset" in text["data"]:
+        path1=url.replace('reader3/','')+text['data'][1:]
+        path2=path1.split('/')
+        path1=path1.replace(path2[-1],"")
+        text233=res.get(url.replace('reader3/','')+text['data'][1:]).text
+        text233=text233.replace('src="',f'src="{path1}')
+        text233=text233.replace('href="',f'href="{path1}')
+        print(url_path)
+        text=text233
+        text = text.replace(url.replace('reader3/',''),"/reader/")
     else:
         text = "　　" + text["data"].replace("\n", br)
     chapter = res.post(url + "getChapterList", json=get_list_json).json()["data"]
