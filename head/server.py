@@ -349,7 +349,7 @@ def add_cookie():
     login_url = res.post(url + "getBookSource", json=json1).json()["data"]
     header = str(login_url["header"])[0:len(login_url["header"])-1]
     print(header)
-    header = header + '\n' + f'"Cookie": "{s_cookie}"' + "}"
+    header = header + ',\n' + f'"Cookie": "{s_cookie}"' + "}"
     login1 = login_url
     login1["header"] = header
     res.post(url + "saveBookSource", json=login1)
@@ -432,4 +432,40 @@ def multi_search_key():
         for j in i["data"]:
             data.append(j)
 
+    return temp("multi_search_book.html", data=data)
+
+
+@app.route("/single_search/")
+def single_sources_index():
+    bookSourceGroup = get_BookSources_list()
+    return temp("single_search_book.html", bookSourceGroup=bookSourceGroup)
+    
+@app.route("/single_search/id/<int:group_id>")
+def single_sources_id(group_id):
+    bookSourceGroup = get_BookSources_list()
+    bookSourceGroup = bookSourceGroup[group_id][0]
+    s_list = []
+    bookSource = res.get(url + "getBookSources").json()["data"]
+    for i in bookSource:
+        if str(i["bookSourceGroup"]) == bookSourceGroup:
+            s_list.append((i["bookSourceName"], i["bookSourceGroup"], f'/single_search/search/{i["bookSourceUrl"]}'))
+    return temp("getBookSources_id.html", bookSourceGroup=bookSourceGroup, s_list=s_list)
+    
+@app.route("/single_search/search/<path:p>")
+def search_sources_get(p):
+    get_url = get_book_url("/single_search/search/")
+    
+    bookSource = res.get(url + "getBookSources").json()["data"]
+    return temp("single_search.html", get_url=get_url)
+    
+@app.route("/single_search/key/<path:p>")
+def single_list(p):
+    url1 = get_book_url("/single_search/key/")
+
+    info=url1.split("?key=")
+    json1 = {
+    "key": info[1],
+    "bookSourceUrl": info[0]
+}
+    data = res.post(url + "searchBook", json=json1).json()["data"]
     return temp("multi_search_book.html", data=data)
