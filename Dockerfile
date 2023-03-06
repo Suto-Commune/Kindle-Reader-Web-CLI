@@ -1,17 +1,18 @@
 FROM python:alpine
 
-RUN apk add --no-cache nginx
-COPY --chmod=755 ./nginx/conf /etc/nginx/
-
 WORKDIR /reader
 
 COPY --chmod=755 . .
 
 RUN apk add --no-cache \
+        nginx \
+        git \
+        tzdata \
+        bash && \
+    apk add --no-cache --virtual=build-dependencies \
         gcc \
         libc-dev \
         libffi-dev \
-        git \
         build-base \
         musl-dev \
         make && \
@@ -23,12 +24,16 @@ RUN apk add --no-cache \
         tar -zxvf jre.tar.gz; \
     fi && \
     pip install -r requirements.txt && \
+    apk del --purge \
+        build-dependencies && \
     rm -rf \
-        jre.tar.gz \
+        /reader/jre.tar.gz \
         /tmp/* \
         /root/.cache \
         /var/cache/apk/*
 
-CMD ["sh","start.sh" ]
+COPY --chmod=755 ./nginx/conf /etc/nginx/
+
+ENTRYPOINT [ "/reader/start.sh" ]
 
 EXPOSE 1000 5000 8080
