@@ -22,8 +22,13 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
+        name: install en
+        run: sudo apt-get install gcc
+      -
         name: Build and push
         uses: docker/build-push-action@v3
         with:
+          file: Dockerfile
+          platforms: linux/amd64, linux/arm64
           push: true
-          tags: lolingnatsumi/kindle-reader-web-cli:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/kindle-reader-web-cli:latest
