@@ -9,6 +9,7 @@ RUN apk add --no-cache \
         git \
         tzdata \
         bash && \
+    pip install --upgrade pip && \
     if [ "$(uname -m)" = "x86_64" ]; then \
         wget https://github.com/adoptium/temurin19-binaries/releases/download/jdk-19.0.1%2B10/OpenJDK19U-jre_x64_alpine-linux_hotspot_19.0.1_10.tar.gz -O jre.tar.gz && \
         tar -zxvf jre.tar.gz; \
