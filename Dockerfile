@@ -9,13 +9,6 @@ RUN apk add --no-cache \
         git \
         tzdata \
         bash && \
-    apk add --no-cache --virtual=build-dependencies \
-        gcc \
-        libc-dev \
-        libffi-dev \
-        build-base \
-        musl-dev \
-        make && \
     if [ "$(uname -m)" = "x86_64" ]; then \
         wget https://github.com/adoptium/temurin19-binaries/releases/download/jdk-19.0.1%2B10/OpenJDK19U-jre_x64_alpine-linux_hotspot_19.0.1_10.tar.gz -O jre.tar.gz && \
         tar -zxvf jre.tar.gz; \
@@ -26,8 +19,6 @@ RUN apk add --no-cache \
         bash install_whl.sh; \
     fi && \
     pip install -r requirements.txt && \
-    apk del --purge \
-        build-dependencies && \
     rm -rf \
         /reader/jre.tar.gz \
         /tmp/* \
