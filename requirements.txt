@@ -1,4 +1,4 @@
 flask~=2.2.2
 requests~=2.28.2
-gevent~=22.10.2
+gevent
 pycryptodome
