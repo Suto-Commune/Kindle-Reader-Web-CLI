@@ -3,9 +3,7 @@
 .idea
 logs
 
-*.*
-!*.js
-!*.css
+
 
 nginx/logs/nginx.pid
 config.py
