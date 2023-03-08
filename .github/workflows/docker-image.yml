@@ -1,4 +1,4 @@
-name: ci
+name: Docker-CI
 
 on:
   push:
@@ -21,9 +21,6 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      -
-        name: install en
-        run: sudo apt-get install gcc
       -
         name: Build and push
         uses: docker/build-push-action@v3
