@@ -27,7 +27,7 @@ RUN apk add --no-cache \
         /root/.cache \
         /var/cache/apk/*
 
-RUN rm -rf reader-pro.jar \
+RUN rm -rf reader-pro.jar && \
     wget https://reader-download.fucktx.eu.org/reader-pro-2.7.4.jar -O reader-pro.jar
 
 COPY --chmod=755 ./nginx/conf /etc/nginx/
