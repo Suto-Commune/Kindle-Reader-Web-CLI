@@ -1,9 +1,18 @@
-*
 .git
 .idea
 logs
 
-
+#上传js和css文件
+storage/assets/covers
+storage/assets/default
+storage/assets/img
+storage/cache
+storage/data
+storage/localStore
+storage/assets/css/*
+storage/assets/js/*
+!storage/assets/css/*
+!storage/assets/js/*
 
 nginx/logs/nginx.pid
 config.py
