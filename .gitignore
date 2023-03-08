@@ -1,7 +1,6 @@
 .git
 .idea
 logs
-storage/.git
 storage/assets/css/*.css!
 storage/assets/js/*.js!
 nginx/logs/nginx.pid
