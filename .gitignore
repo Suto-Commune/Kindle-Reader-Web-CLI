@@ -1,8 +1,8 @@
 .git
 .idea
 logs
-storage/assets/css/*.css!
-storage/assets/js/*.js!
+! storage/assets/css/*.css
+! storage/assets/js/*.js
 nginx/logs/nginx.pid
 config.py
 head/config.py
