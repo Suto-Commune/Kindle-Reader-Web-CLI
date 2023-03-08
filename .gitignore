@@ -6,6 +6,7 @@ logs
 storage/assets/covers
 storage/assets/default
 storage/assets/img
+storage/assets/reader.css
 storage/cache
 storage/data
 storage/localStore
