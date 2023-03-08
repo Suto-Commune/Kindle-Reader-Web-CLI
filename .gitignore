@@ -3,10 +3,9 @@
 .idea
 logs
 
-storage/assets/css/*
-storage/assets/js/*
-!storage/assets/css/*.css
-!storage/assets/js/*.js
+*.*
+!*.js
+!*.css
 
 nginx/logs/nginx.pid
 config.py
