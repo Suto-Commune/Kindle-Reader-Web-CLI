@@ -1,6 +1,9 @@
 name: Reader2.7.4_Builder
 
-on: workflow_dispatch
+on:
+  push:
+    branches:
+      - 'main'
 
 jobs:
   docker:
