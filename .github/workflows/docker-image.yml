@@ -25,7 +25,7 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v3
         with:
-          file: Dockerfile
-          platforms: linux/amd64, linux/arm64
+          file: arm64.Dockerfile
+          platforms: linux/arm64
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/kindle-reader-web-cli:latest
