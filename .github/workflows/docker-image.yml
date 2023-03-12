@@ -108,7 +108,7 @@ jobs:
 
   tag-latest:
     needs: [amd64, arm64]
-    name: version tag
+    name: version tag latest
     runs-on: ubuntu-latest
     steps:
 
@@ -138,7 +138,7 @@ jobs:
 
   tag-274:
     needs: [amd64-274, arm64-274]
-    name: version tag
+    name: version tag 274
     runs-on: ubuntu-latest
     steps:
 
