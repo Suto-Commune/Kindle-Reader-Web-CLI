@@ -13,6 +13,7 @@ import requests as res
 import re
 import json
 import io
+import ast
 
 
 # 解析Book_url
@@ -39,8 +40,6 @@ app = fl(__name__, static_folder='../storage', static_url_path='')
 def index():
     global url
     main_page = res.get(url + "getBookGroups").json()
-    main_page["data"].pop(1)
-    main_page["data"].pop(1)
     return temp("book_groups.html", main_page=main_page)
 
 
@@ -68,7 +67,7 @@ def bookshelf(group="-1"):
         for got_book_info in main_page['data']:
             got_book_info["groups"] = got_book_info[
                 "coverUrl"] if "coverUrl" in got_book_info else '/assets/img/noCover.jpeg'
-        return temp("bookshelf_category.html", main_page=main_page, group_name=group_name,quote=quote_plus)
+        return temp("bookshelf_category.html", main_page=main_page, group_name=group_name, quote=quote_plus)
     if group == "-4":
         return '<meta http-equiv="refresh" content="0;url=/bookshelf/0">'
     else:
@@ -80,7 +79,7 @@ def bookshelf(group="-1"):
         for got_book_info in main_page['data']:
             got_book_info["groups"] = got_book_info[
                 "coverUrl"] if "coverUrl" in got_book_info else '/assets/img/noCover.jpeg'
-        return temp("bookshelf_category.html", main_page=main_page, group_name=group_name,quote=quote_plus)
+        return temp("bookshelf_category.html", main_page=main_page, group_name=group_name, quote=quote_plus)
 
 
 @app.route('/book/<path:p>')
@@ -123,7 +122,7 @@ def book_read(index_, save, p):
     # 拼接url
     # index和外部函数重名的,容易出bug,改成index_了
     b_url = get_book_url(f"/read/{save}/{index_}/")
-    url_path = b_url.replace(f"/read/{save}/{index_}/","")
+    url_path = b_url.replace(f"/read/{save}/{index_}/", "")
     # 创建请求数据
     get_content_json = {
         "url": b_url,
@@ -138,14 +137,14 @@ def book_read(index_, save, p):
     # 发送请求
     text = dict(res.post(url + "getBookContent", json=get_content_json).json())
     if "book-asset" in text["data"]:
-        path1=url.replace('reader3/','')+text['data'][1:]
-        path2=path1.split('/')
-        path1=path1.replace(path2[-1],"")
-        text233=res.get(url.replace('reader3/','')+text['data'][1:]).text
-        text233=text233.replace('src="',f'src="{path1}')
-        text233=text233.replace('href="',f'href="{path1}')
-        text=text233
-        text = text.replace(url.replace('reader3/',''),"/reader/")
+        path1 = url.replace('reader3/', '') + text['data'][1:]
+        path2 = path1.split('/')
+        path1 = path1.replace(path2[-1], "")
+        text233 = res.get(url.replace('reader3/', '') + text['data'][1:]).text
+        text233 = text233.replace('src="', f'src="{path1}')
+        text233 = text233.replace('href="', f'href="{path1}')
+        text = text233
+        text = text.replace(url.replace('reader3/', ''), "/reader/")
     else:
         text = "　　" + text["data"].replace("\n", br)
     chapter = res.post(url + "getChapterList", json=get_list_json).json()["data"]
@@ -287,7 +286,7 @@ def sources_id(group_id):
     s_list = []
     bookSource = res.get(url + "getBookSources").json()["data"]
     for i in bookSource:
-        if str(bookSourceGroup) in str(i["bookSourceGroup"]) :
+        if str(bookSourceGroup) in str(i["bookSourceGroup"]):
             s_list.append((i["bookSourceName"], i["bookSourceGroup"], f'/sources/get/{quote_plus(i["bookSourceUrl"])}'))
     return temp("getBookSources_id.html", bookSourceGroup=bookSourceGroup, s_list=s_list)
 
@@ -312,7 +311,36 @@ def sources_get(p):
     else:
         sources_exploreUrl = sources_exploreUrl.replace("layout_flexGrow", '"layout_flexGrow"')
         sources_exploreUrl = sources_exploreUrl.replace("layout_flexBasisPercent", '"layout_flexBasisPercent"')
-    sources_exploreUrl = eval(sources_exploreUrl)
+
+    if "::" in sources_exploreUrl:
+        wait = sources_exploreUrl.split("\n")
+        print(wait)
+        wait2 = []
+        for i in wait:
+            j = i.split("::")
+            wait1 = {"title": j[0], "url": j[1]}
+            dict1 = {"layout_flexBasisPercent": "30"}
+            wait1["style"] = dict1
+            wait2.append(wait1)
+        sources_exploreUrl = str(wait2)
+        del wait
+        del wait1
+
+    try:
+        sources_exploreUrl = eval(sources_exploreUrl)
+    except:
+        sources_exploreUrl = [
+            {
+                "url": 'errorsourceserror',
+                "title": "此书源不可探索或探索错误，点击此按钮返回探索主页",
+                "style": {
+                    "layout_flexBasisPercent": "30"
+                }
+            }
+        ]
+    for i in sources_exploreUrl:
+        i["url"] = f"{sources_get_url}%E6%88%91natsumi%E6%98%AF" + quote_plus(i["url"])
+
     return temp("getBookSources_get.html", sources_exploreUrl=sources_exploreUrl, name=name)
 
 
@@ -347,7 +375,7 @@ def add_cookie():
         "bookSourceUrl": exploreBook_URL
     }
     login_url = res.post(url + "getBookSource", json=json1).json()["data"]
-    header = str(login_url["header"])[0:len(login_url["header"])-1]
+    header = str(login_url["header"])[0:len(login_url["header"]) - 1]
     print(header)
     header = header + ',\n' + f'"Cookie": "{s_cookie}"' + "}"
     login1 = login_url
@@ -359,17 +387,23 @@ def add_cookie():
 @app.route("/sources/list/<path:p>")
 def sources_list(p):
     ruleFindUrl = get_book_url("/sources/list/")
-
-    ex_list = ruleFindUrl.split("/")
+    print(ruleFindUrl)
+    if "errorsourceserror" in ruleFindUrl:
+        return '<meta http-equiv="refresh" content="0;url=/sources">'
+    ex_list = ruleFindUrl.split("我natsumi是")
     print(ex_list)
-    exploreBook_URL = f"{ex_list[0]}//{ex_list[2]}"
+    ruleFindUrl = ex_list[1]
+    exploreBook_URL = ex_list[0]
     del ex_list
     json1 = {
         'bookSourceUrl': exploreBook_URL,
         "page": 1,
         "ruleFindUrl": ruleFindUrl
     }
+    print(json1)
     explore = res.post(url + "exploreBook", json=json1).json()["data"]
+    for i in explore:
+        i["bookUrl"] = f"{i['origin']}%E6%88%91natsumi%E6%98%AF" + quote_plus(i["bookUrl"])
     return temp("getBookSources_list.html", explore=explore)
 
 
@@ -377,8 +411,6 @@ def sources_list(p):
 def choose_book_groups(p):
     book_url = get_book_url("/save/group/")
     main_page = res.get(url + "getBookGroups").json()
-    main_page["data"].pop(1)
-    main_page["data"].pop(1)
     groups = main_page["data"]
     del main_page
     return temp("save_book_choose_book_groups.html", groups=groups, book_url=book_url)
@@ -386,10 +418,12 @@ def choose_book_groups(p):
 
 @app.route("/save/group_id/<string:group_id>/<path:p>")
 def save_book(p, group_id):
-    group_id=int(group_id)
+    group_id = int(group_id)
     book_url = get_book_url(f"/save/group_id/{group_id}/")
-    origin_list = book_url.split("/")
-    origin = f"{origin_list[0]}//{origin_list[2]}"
+    origin_list = book_url.split("我natsumi是")
+    print(origin_list)
+    origin = origin_list[0]
+    book_url = origin_list[1]
     if int(group_id) < 0:
         group_id = 0
     json1 = {
@@ -431,7 +465,8 @@ def multi_search_key():
     for i in file:
         for j in i["data"]:
             data.append(j)
-
+    for i in data:
+        i["bookUrl"] = f"{i['origin']}%E6%88%91natsumi%E6%98%AF" + quote_plus(i["bookUrl"])
     return temp("multi_search_book.html", data=data)
 
 
@@ -439,7 +474,8 @@ def multi_search_key():
 def single_sources_index():
     bookSourceGroup = get_BookSources_list()
     return temp("single_search_book.html", bookSourceGroup=bookSourceGroup)
-    
+
+
 @app.route("/single_search/id/<int:group_id>")
 def single_sources_id(group_id):
     bookSourceGroup = get_BookSources_list()
@@ -448,24 +484,29 @@ def single_sources_id(group_id):
     bookSource = res.get(url + "getBookSources").json()["data"]
     for i in bookSource:
         if str(i["bookSourceGroup"]) == bookSourceGroup:
-            s_list.append((i["bookSourceName"], i["bookSourceGroup"], f'/single_search/search/{quote_plus(i["bookSourceUrl"])}'))
+            s_list.append(
+                (i["bookSourceName"], i["bookSourceGroup"], f'/single_search/search/{quote_plus(i["bookSourceUrl"])}'))
     return temp("getBookSources_id.html", bookSourceGroup=bookSourceGroup, s_list=s_list)
-    
+
+
 @app.route("/single_search/search/<path:p>")
 def search_sources_get(p):
     get_url = get_book_url("/single_search/search/")
-    
+
     bookSource = res.get(url + "getBookSources").json()["data"]
     return temp("single_search.html", get_url=get_url)
-    
+
+
 @app.route("/single_search/key/<path:p>")
 def single_list(p):
     url1 = get_book_url("/single_search/key/")
 
-    info=url1.split("?key=")
+    info = url1.split("?key=")
     json1 = {
-    "key": info[1],
-    "bookSourceUrl": info[0]
-}
+        "key": info[1],
+        "bookSourceUrl": info[0]
+    }
     data = res.post(url + "searchBook", json=json1).json()["data"]
+    for i in data:
+        i["bookUrl"] = f"{i['origin']}%E6%88%91natsumi%E6%98%AF" + quote_plus(i["bookUrl"])
     return temp("multi_search_book.html", data=data)
