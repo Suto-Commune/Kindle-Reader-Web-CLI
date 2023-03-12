@@ -1,3 +1,10 @@
+环境：
+```
+Python 3.11.2
+OPENJDK 17+
+```
+---
+
 一键运行：`python main.py`
 
 kindle端: http://IP:5000 or http://IP:1000
