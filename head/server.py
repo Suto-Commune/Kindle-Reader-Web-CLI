@@ -4,6 +4,7 @@ from flask import request as req
 
 from urllib.parse import unquote
 from urllib.parse import quote
+from urllib.parse import quote_plus
 
 from head.config import *
 from head.aes import aes_encode
@@ -67,7 +68,7 @@ def bookshelf(group="-1"):
         for got_book_info in main_page['data']:
             got_book_info["groups"] = got_book_info[
                 "coverUrl"] if "coverUrl" in got_book_info else '/assets/img/noCover.jpeg'
-        return temp("bookshelf_category.html", main_page=main_page, group_name=group_name)
+        return temp("bookshelf_category.html", main_page=main_page, group_name=group_name,quote=quote_plus)
     if group == "-4":
         return '<meta http-equiv="refresh" content="0;url=/bookshelf/0">'
     else:
@@ -79,7 +80,7 @@ def bookshelf(group="-1"):
         for got_book_info in main_page['data']:
             got_book_info["groups"] = got_book_info[
                 "coverUrl"] if "coverUrl" in got_book_info else '/assets/img/noCover.jpeg'
-        return temp("bookshelf_category.html", main_page=main_page, group_name=group_name)
+        return temp("bookshelf_category.html", main_page=main_page, group_name=group_name,quote=quote_plus)
 
 
 @app.route('/book/<path:p>')
@@ -143,7 +144,6 @@ def book_read(index_, save, p):
         text233=res.get(url.replace('reader3/','')+text['data'][1:]).text
         text233=text233.replace('src="',f'src="{path1}')
         text233=text233.replace('href="',f'href="{path1}')
-        print(url_path)
         text=text233
         text = text.replace(url.replace('reader3/',''),"/reader/")
     else:
@@ -287,8 +287,8 @@ def sources_id(group_id):
     s_list = []
     bookSource = res.get(url + "getBookSources").json()["data"]
     for i in bookSource:
-        if str(i["bookSourceGroup"]) == bookSourceGroup:
-            s_list.append((i["bookSourceName"], i["bookSourceGroup"], f'/sources/get/{i["bookSourceUrl"]}'))
+        if str(bookSourceGroup) in str(i["bookSourceGroup"]) :
+            s_list.append((i["bookSourceName"], i["bookSourceGroup"], f'/sources/get/{quote_plus(i["bookSourceUrl"])}'))
     return temp("getBookSources_id.html", bookSourceGroup=bookSourceGroup, s_list=s_list)
 
 
@@ -326,7 +326,7 @@ def sources_login(p):
     }
     login_url = res.post(url + "getBookSource", json=json1).json()["data"]["loginUrl"]
     return f"<a href='{login_url}'>点击此链接进行登录</a>；加载<a href='https://github.com/Suto-Commune/get-cookie'>插件</a" \
-           f">后复制cookie转跳至<a href='/sources/cookie/{exploreBook_URL}'>这</a> "
+           f">后复制cookie转跳至<a href='/sources/cookie/{quote_plus(exploreBook_URL)}'>这</a> "
 
 
 @app.route("/sources/cookie/<path:p>")
@@ -334,7 +334,7 @@ def sources_cookie(p):
     book_url = get_book_url("/sources/cookie/")
     ex_list = book_url.split("/")
     exploreBook_URL = f"{ex_list[0]}//{ex_list[2]}"
-    return temp("cookie.html", url=exploreBook_URL)
+    return temp("cookie.html", url=quote_plus(exploreBook_URL))
 
 
 @app.route("/sources/cookieadd/")
@@ -399,7 +399,7 @@ def save_book(p, group_id):
     }
     save = res.post(url + "saveBook", json=json1)
     print(f'[INFO]\tSave book "{book_url}" to group {group_id}.Code: {save.status_code}')
-    return f'<meta http-equiv="refresh" content="0;url=/book/{book_url}">'
+    return f'<meta http-equiv="refresh" content="0;url=/book/{quote_plus(book_url)}">'
 
 
 @app.route("/search/")
@@ -448,7 +448,7 @@ def single_sources_id(group_id):
     bookSource = res.get(url + "getBookSources").json()["data"]
     for i in bookSource:
         if str(i["bookSourceGroup"]) == bookSourceGroup:
-            s_list.append((i["bookSourceName"], i["bookSourceGroup"], f'/single_search/search/{i["bookSourceUrl"]}'))
+            s_list.append((i["bookSourceName"], i["bookSourceGroup"], f'/single_search/search/{quote_plus(i["bookSourceUrl"])}'))
     return temp("getBookSources_id.html", bookSourceGroup=bookSourceGroup, s_list=s_list)
     
 @app.route("/single_search/search/<path:p>")
