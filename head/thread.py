@@ -30,17 +30,6 @@ def flask_thread():
     app.run(host='0.0.0.0', debug=False, port=port)
 
 
-def print_thread():
-    print("[INFO] --- PRINT ---")
-    print("\tKindle-Reader-Web-Client Start!")
-    print("\tGithub: https://github.com/Suto-Commune/Kindle-Reader-Web-CLI/")
-    print("\tAuthor LolingNatsumi,hsn8086,GooGuJiang\n\tThe Dockerfile By DDSRem")
-    print(
-        f"\t * Kindle Web: http://127.0.0.1:5000 or http://127.0.0.1:1000\n\t * Reader Web: http://127.0.0.1:8080 or http://127.0.0.1:1000/reader")
-    print("\tPress Ctrl+C to exit.")
-    print("[INFO] --- PRINT END---")
-
-
 def nginx_thread():
     try:
         os.system("cd nginx && nginx")
@@ -68,7 +57,7 @@ def backup_thread():
 
 # 线程创建
 t_flask = threading.Thread(name='flask', target=flask_thread, daemon=True)
-t_print = threading.Thread(name='print', target=print_thread, daemon=True)
+# t_print = threading.Thread(name='print', target=print_thread, daemon=True)
 t_reader = threading.Thread(name='reader', target=reader_thread, daemon=True)
 t_nginx = threading.Thread(name='nginx', target=nginx_thread, daemon=True)
 t_wsgi = threading.Thread(name='wsgi', target=wsgi_thread, daemon=True)
@@ -77,7 +66,7 @@ t_backup = threading.Thread(name='backup', target=backup_thread, daemon=True)
 
 # 线程启动
 def thread_starter():
-    t_print.start()
+    # t_print.start()
     time.sleep(1)
     t_reader.start()
     t_backup.start()

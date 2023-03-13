@@ -15,8 +15,29 @@ def create_config():
                 f.extract(file, "./head/")
             f.close()
 
+def print_info():
+    print("[INFO] --- PRINT ---")
+    print("\tKindle-Reader-Web-Client Start!")
+    print("""
+          .-')                .-') _                
+         ( OO ).             (  OO) )               
+        (_)---\_) ,--. ,--.  /     '._  .-'),-----. 
+        /    _ |  |  | |  |  |'--...__)( OO'  .-.  '
+        \  :` `.  |  | | .-')'--.  .--'/   |  | |  |
+         '..`''.) |  |_|( OO )  |  |   \_) |  |\|  |
+        .-._)   \ |  | | `-' /  |  |     \ |  | |  |
+        \       /('  '-'(_.-'   |  |      `'  '-'  '
+         `-----'   `-----'      `--'        `-----' 
+    """)
+    print("\tGithub: https://github.com/Suto-Commune/Kindle-Reader-Web-CLI/")
+    print("\tAuthor LolingNatsumi,hsn8086,GooGuJiang\n\tThe Dockerfile By DDSRem")
+    print(
+        f"\t * Kindle Web: http://127.0.0.1:5000 or http://127.0.0.1:1000\n\t * Reader Web: http://127.0.0.1:8080 or http://127.0.0.1:1000/reader")
+    print("\tPress Ctrl+C to exit.")
+    print("[INFO] --- PRINT END---")
 
 if __name__ == "__main__":
+    print_info()
     # 引用
     create_config()
     from head.func import start, exit_do, ban_windows_window_close_button
