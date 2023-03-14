@@ -483,7 +483,7 @@ def single_sources_id(group_id):
     s_list = []
     bookSource = res.get(url + "getBookSources").json()["data"]
     for i in bookSource:
-        if str(i["bookSourceGroup"]) == bookSourceGroup:
+        if str(bookSourceGroup) in str(i["bookSourceGroup"]):
             s_list.append(
                 (i["bookSourceName"], i["bookSourceGroup"], f'/single_search/search/{quote_plus(i["bookSourceUrl"])}'))
     return temp("getBookSources_id.html", bookSourceGroup=bookSourceGroup, s_list=s_list)
