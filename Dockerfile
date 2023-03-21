@@ -28,4 +28,4 @@ COPY --chmod=755 ./nginx/conf /etc/nginx/
 
 ENTRYPOINT [ "/reader/start.sh" ]
 
-EXPOSE 1000 5000 8080
+EXPOSE 80 1000 5000 8080
