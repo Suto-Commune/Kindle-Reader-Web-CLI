@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>悬浮窗</title>
+		<style>
+			#floating-window-right {
+			        position: absolute;
+			        right: 90%;
+			        width: 10%;
+			        height: 100%;
+			        z-index: 999;
+			        visibility: visible;
+			      }
+			      #floating-window-left {
+			        position: absolute;
+			        left: 90%;
+			        width: 10%;
+			        height: 100%;
+			        z-index: 999;
+			        visibility: visible;
+			      }
+		</style>
+	</head>
+	<body>
+		<div id="floating-window-right" onclick="lastPage()">
+		</div>
+		<div id="floating-window-left" onclick="nextPage()">
+		</div>
+		<div id="text"></div>
+		<script>
+			function toggleFloatingWindow() {
+			        var fw = document.getElementById("floating-window-left");
+			        var fw = document.getElementById("floating-window-right");
+			        if (fw.style.visibility === "hidden") {
+			          fw.style.visibility = "visible";
+			        } else {
+			          fw.style.visibility = "hidden";
+			        }
+			      }
+			    var myString = "";
+					var currentPage = 1;
+					var charsPerPage = 5;
+					function displayPage() {
+					  var startIndex = (currentPage - 1) * charsPerPage;
+					  var endIndex = startIndex + charsPerPage;
+					  var pageString = myString.slice(startIndex, endIndex);
+					  document.getElementById("text").innerHTML = pageString.replace("\n","<br/>");
+					}
+			
+			        function nextPage() {
+			            currentPage++;
+			            var totalPages = Math.ceil(myString.length / charsPerPage);
+			            if (currentPage > totalPages) {
+			                currentPage = totalPages;
+			            }
+			            displayPage();
+			        }
+			
+			        function lastPage() {
+			            currentPage--;
+			            if (currentPage <= 0) {
+			                currentPage = 1;
+			            }
+			            displayPage();
+			        }
+			        displayPage();
+		</script>
+	</body>
+</html>

@@ -146,7 +146,7 @@ def book_read(index_, save, p):
         text = text233
         text = text.replace(url.replace('reader3/', ''), "/reader/")
     else:
-        text = "　　" + text["data"].replace("\n", br)
+        text = "　　" + text["data"]
     chapter = res.post(url + "getChapterList", json=get_list_json).json()["data"]
 
     # 获取标题
@@ -175,13 +175,13 @@ def book_read(index_, save, p):
         next_chapter = 'onclick="alert(\'没有下一章啦\');"'
 
     if read_mode == 1:
-        change_page = '<div name="change_page"><div style="z-index: 2;height: 100%;width: 20%;position: fixed;margin-right: 80%;"onclick="window.scroll(window.scrollY,window.scrollY-document.body.clientHeight);"></div><div style="z-index: 2;height: 100%;width: 20%;position: fixed;margin-left: 80%;"onclick="window.scroll(window.scrollY,window.scrollY+document.body.clientHeight);"></div></div>'
+        return temp("bookviewer_lr.html", chaptername=chapter_name,
+                    br=br, text=text.replace("\n","🎈"),
+                    next_zhang=next_chapter, last_zhang=last_chapter, bookurl=b_url)
     else:
-        change_page = ""
-
-    return temp("bookviewer_reading.html", chaptername=chapter_name,
-                br=br, text=text,
-                next_zhang=next_chapter, last_zhang=last_chapter, bookurl=b_url, change_page=change_page)
+        return temp("bookviewer_roll.html", chaptername=chapter_name,
+                    br=br, text=text.replace("\n", br),
+                    next_zhang=next_chapter, last_zhang=last_chapter, bookurl=b_url)
 
 
 @app.route("/chapter/<page>/<path:p>")
