@@ -35,7 +35,7 @@ def storage_clone():
         logger.info("CLONE_MODE Enable.Start Clone...")
         os.system(f"git clone {origin} storage")
     elif not config.CLONE_MODE:
-        logger.info("CLONE_MODE Disable.")
+        logger.warning("CLONE_MODE Disable.")
 
 
 # 启动函数

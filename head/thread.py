@@ -34,13 +34,10 @@ def flask_thread():
 def nginx_thread():
     try:
         subprocess.check_output(['nginx'], cwd='nginx')
-    except FileNotFoundError as err:
-        logging.getLogger(__name__).exception(err)
-        logging.getLogger(__name__).critical('Unable to load thread:"nginx",please check file or nginx integrity.')
-        sys.exit()
-    except subprocess.CalledProcessError as err:
-        logging.getLogger(__name__).exception(err)
-        logging.getLogger(__name__).critical('Unable to load thread:"nginx",please check permission.')
+    except (FileNotFoundError, subprocess.CalledProcessError) as err:
+        if config.DEBUG:
+            logging.getLogger(__name__).exception(err)
+        logging.getLogger(__name__).warning('Unable to load thread:"nginx",please check file or nginx integrity.')
         sys.exit()
 
 
