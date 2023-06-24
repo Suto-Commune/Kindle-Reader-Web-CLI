@@ -18,7 +18,7 @@ def create_img():
 
 
 # 禁用Windows下的关闭按钮使得关闭程序只能使用Ctrl+C
-def ban_windows_window_close_button():
+def ban_win_close_button():
     import win32console, win32gui, win32con
     hwnd = win32console.GetConsoleWindow()
     if hwnd:

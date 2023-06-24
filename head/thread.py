@@ -28,14 +28,19 @@ def reader_thread():
 
 # 创建flask线程
 def flask_thread():
-    app.run(host='0.0.0.0', debug=False, port=config.port)
+    app.run(host='0.0.0.0', debug=True, port=config.port)
 
 
 def nginx_thread():
     try:
         subprocess.check_output(['nginx'], cwd='nginx')
-    except FileNotFoundError:
+    except FileNotFoundError as err:
+        logging.getLogger(__name__).exception(err)
         logging.getLogger(__name__).critical('Unable to load thread:"nginx",please check file or nginx integrity.')
+        sys.exit()
+    except subprocess.CalledProcessError as err:
+        logging.getLogger(__name__).exception(err)
+        logging.getLogger(__name__).critical('Unable to load thread:"nginx",please check permission.')
         sys.exit()
 
 
@@ -50,7 +55,7 @@ def backup_thread():
     if config.AUTO_BACKUP:
         backup()
     elif not config.AUTO_BACKUP:
-        print("[INFO]Doesn't OPEN AUTO_BACKUP.")
+        logging.getLogger(__name__).info("Doesn't OPEN AUTO_BACKUP.")
         sys.exit()
 
 
