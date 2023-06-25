@@ -7,6 +7,18 @@ pip install -r requirements.txt
 start.bat
 ```
 
+## 环境
+
+```
+Python 3.11.2
+OPENJDK 17+
+请使用管理员/root身份运行本程序
+```
+
+kindle端: (native) `http://IP:5000` or (nginx)`http://IP:1000`
+
+web端: (native)`http://IP:8080` or (nginx)`http://IP:1000/reader`
+
 ## [使用docker](https://hub.docker.com/repository/docker/lolingnatsumi/kindle-reader-web-cli/general)
 
 _点击标题_
@@ -19,7 +31,7 @@ _点击标题_
 
    ![image](https://user-images.githubusercontent.com/63963655/213427406-1780a1c8-480a-43f4-822b-4c1379532ef8.png)
 
-2. 翻到下面的`Public Git repository`,填入`https://github.com/Suto-Commune/Kindle-Reader-Web-CLI/`,然后点击`Continue`
+2. 翻到下面的`Public Git repository`,填入`https://github.com/Suto-Commune/Kindle-Reader-Web-CLI/`,然后点击`继续`
 
    ![image](https://user-images.githubusercontent.com/63963655/213428040-af80a7b1-9d89-4ead-81a7-941ac846587d.png)
 
@@ -41,7 +53,7 @@ _点击标题_
 
 7. 点击`Environment`，点击`Add Environment Variable`
 
-8. `KEY`填写`PORT`,`value`填写`80`,填写完毕点击`Save Changes`
+8. `密钥`填写`PORT`,`value`填写`80`,填写完毕点击`保存更改`
 
    ![image](https://user-images.githubusercontent.com/63963655/213429546-1fa1e2bc-ddb2-4a3a-956a-3bc98be75c0e.png)
 
@@ -89,21 +101,5 @@ br = '<div class="wb"></div>'
 read_mode = 0
 ```
 
-# 如何运行
 
-## 环境
-
-```
-Python 3.11.2
-OPENJDK 17+
-请使用管理员/root身份运行本程序
-```
-
-## 运行
-
-一键运行：`python main.py`
-
-kindle端: (native) `http://IP:5000` or (nginx)`http://IP:1000`
-
-web端: (native)`http://IP:8080` or (nginx)`http://IP:1000/reader`
 
