@@ -51,7 +51,8 @@ def start():
 
 
 # 结束时运行的函数
-def exit_do():
+def exit_do(signal,frame):
+    print("Exit.")
     try:
         if platform.system() == "Windows":
             subprocess.check_output(["taskkill", "/f", "/im", "nginx.exe"])
@@ -59,4 +60,25 @@ def exit_do():
             subprocess.check_output(["killall", "-9", "nginx"])
             subprocess.check_output(["killall", "-9", "nginx"])
     except FileNotFoundError:
+        ...
+    sys.exit(0)
+
+def windows_close_cleanup():
+    import ctypes
+    console_handler = ctypes.WinDLL('./console_handler.dll')
+    ConsoleHandlerFunc = ctypes.WINFUNCTYPE(ctypes.c_int, ctypes.c_uint)
+    def ConsoleHandler(dwCtrlType):
+        if dwCtrlType == 2:
+            return 0
+        return 0
+    callback = ConsoleHandlerFunc(ConsoleHandler)
+    console_handler.RegisterConsoleHandler(callback)
+
+def mddd():
+    try:
+        os.mkdir("./nginx/conf")
+        os.mkdir("./nginx/contrib")
+        os.mkdir("./nginx/logs")
+        os.mkdir("./nginx/temp")
+    except:
         ...

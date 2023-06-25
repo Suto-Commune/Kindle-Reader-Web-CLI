@@ -19,7 +19,6 @@ def reader_thread():
         ...
     try:
         subprocess.check_output([f'{config.java_path}', '-jar', 'reader-pro.jar', '>nul'])
-        # os.system(f'"{java_path}" -jar reader-pro.jar')
     except FileNotFoundError as err:
         logging.getLogger(__name__).critical(err)
         logging.getLogger(__name__).critical('Unable to load thread:"reader",please check file or java integrity.')
@@ -33,7 +32,7 @@ def flask_thread():
 
 def nginx_thread():
     try:
-        subprocess.check_output(['nginx'], cwd='nginx')
+        subprocess.check_output(['cd',"nginx","&","nginx"], shell=True)
     except (FileNotFoundError, subprocess.CalledProcessError) as err:
         if config.DEBUG:
             logging.getLogger(__name__).exception(err)
@@ -66,8 +65,6 @@ t_backup = threading.Thread(name='backup', target=backup_thread, daemon=True)
 
 # 线程启动
 def thread_starter():
-    # t_print.start()
-    time.sleep(1)
     t_reader.start()
     t_backup.start()
     if config.DEBUG:

@@ -1,11 +1,10 @@
-import atexit
 import io
 import logging
 import os
-import platform
-import subprocess
-import sys
 import zipfile
+import signal
+import platform
+
 
 logging.basicConfig(level=logging.INFO,
                     format='[%(asctime)s][%(filename)s(%(lineno)d)][%(levelname)s] %(message)s',
@@ -54,21 +53,13 @@ def print_info():
 
 if __name__ == "__main__":
     print_info()
-    # 引用
     create_config()
-    from head.func import start, exit_do, ban_win_close_button
+    from head.func import start, exit_do,mddd
+    mddd()
+    if platform.system() == "Windows":
+        from head.func import windows_close_cleanup
+        windows_close_cleanup()
 
     # 注册退出函数
-    atexit.register(exit_do)
-
-    # 禁用窗口关闭按钮
-    if platform.system() == "Windows":
-        try:
-            ban_win_close_button()
-        except ImportError:
-            try:
-                subprocess.check_output([sys.executable, '-m', 'pip', 'install', 'pywin32'])
-                ban_win_close_button()
-            except ImportError:
-                ...
+    signal.signal(signal.SIGINT,exit_do)
     start()
