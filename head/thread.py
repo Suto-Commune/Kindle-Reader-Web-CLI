@@ -1,5 +1,4 @@
 import logging
-import os
 import subprocess
 import sys
 import threading
@@ -7,58 +6,58 @@ import time
 
 from gevent import pywsgi
 
-from head.config import *
-from head.server import app
+from head import config
 from head.backup import backup
+from head.server import app
 
 
 # 创建reader线程
 def reader_thread():
     try:
-        subprocess.check_output([f'{java_path}', '-jar', 'reader-pro.jar', '>nul'])
-    except:
+        subprocess.check_output([f'{config.java_path}', '-jar', 'reader-pro.jar', '>nul'])
+    except FileNotFoundError:
         ...
     try:
-        subprocess.check_output([f'{java_path}', '-jar', 'reader-pro.jar', '>nul'])
+        subprocess.check_output([f'{config.java_path}', '-jar', 'reader-pro.jar', '>nul'])
         # os.system(f'"{java_path}" -jar reader-pro.jar')
-    except:
+    except FileNotFoundError as err:
+        logging.getLogger(__name__).critical(err)
         logging.getLogger(__name__).critical('Unable to load thread:"reader",please check file or java integrity.')
         sys.exit()
 
 
 # 创建flask线程
 def flask_thread():
-    app.run(host='0.0.0.0', debug=False, port=port)
+    app.run(host='0.0.0.0', debug=True, port=config.port)
 
 
 def nginx_thread():
     try:
-        os.system("cd nginx && nginx")
-    except:
-        logging.getLogger(__name__).critical('Unable to load thread:"nginx",please check file or nginx integrity.')
+        subprocess.check_output(['nginx'], cwd='nginx')
+    except (FileNotFoundError, subprocess.CalledProcessError) as err:
+        if config.DEBUG:
+            logging.getLogger(__name__).exception(err)
+        logging.getLogger(__name__).warning('Unable to load thread:"nginx",please check file or nginx integrity.')
         sys.exit()
 
 
 def wsgi_thread():
-    if port is None:
-        port1 = 5000
-    else:
-        port1 = port
-    server = pywsgi.WSGIServer(('0.0.0.0', port1), app)
+    port = config.port if config.port is not None else 5000
+
+    server = pywsgi.WSGIServer(('0.0.0.0', port), app)
     server.serve_forever()
 
 
 def backup_thread():
-    if AUTO_BACKUP:
+    if config.AUTO_BACKUP:
         backup()
-    elif not AUTO_BACKUP:
-        print("[INFO]Doesn't OPEN AUTO_BACKUP.")
+    elif not config.AUTO_BACKUP:
+        logging.getLogger(__name__).info("Doesn't OPEN AUTO_BACKUP.")
         sys.exit()
 
 
 # 线程创建
 t_flask = threading.Thread(name='flask', target=flask_thread, daemon=True)
-# t_print = threading.Thread(name='print', target=print_thread, daemon=True)
 t_reader = threading.Thread(name='reader', target=reader_thread, daemon=True)
 t_nginx = threading.Thread(name='nginx', target=nginx_thread, daemon=True)
 t_wsgi = threading.Thread(name='wsgi', target=wsgi_thread, daemon=True)
@@ -71,8 +70,8 @@ def thread_starter():
     time.sleep(1)
     t_reader.start()
     t_backup.start()
-    if DEBUG:
+    if config.DEBUG:
         t_flask.start()
-    elif not DEBUG:
+    elif not config.DEBUG:
         t_wsgi.start()
     t_nginx.start()
