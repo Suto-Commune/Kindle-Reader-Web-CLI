@@ -1,19 +1,21 @@
 .git
 .idea
 logs
+__pycache__
 
 #上传js和css文件
 storage/assets/covers
 storage/assets/default
-storage/assets/img
 storage/assets/reader.css
 storage/cache
 storage/data
 storage/localStore
 storage/assets/css/*
 storage/assets/js/*
+storage/assets/img/*
 !storage/assets/css/*
 !storage/assets/js/*
+!storage/assets/img/*
 
 nginx/logs/nginx.pid
 config.py
